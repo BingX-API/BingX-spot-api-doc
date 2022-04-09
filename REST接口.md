@@ -360,7 +360,7 @@ echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=M
     "msg": "",
     "ttl": 1,
     "data": {
-        "Orders": [
+        "orders": [
             {
                 "symbol": "XRP-USDT",
                 "orderId": 1512690811962130432,
