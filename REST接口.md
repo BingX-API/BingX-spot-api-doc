@@ -76,8 +76,8 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 ```
 1. 对接口参数进行拼接: quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET
 2. 对拼接好的参数字符串使用secretKey生成签名: 428a3c383bde514baff0d10d3c20e5adfaacaf799e324546dafe5ccc480dd827
-
-echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET" | openssl dgst -sha256 -hmac "UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI" -hex
+   echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET" | openssl dgst -sha256 -hmac "UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI" -hex
+3. 发送请求: https://${服务地址}/openApi/spot/v1/trade/order?quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET&signature=428a3c383bde514baff0d10d3c20e5adfaacaf799e324546dafe5ccc480dd827
 ```
 
 # 交易接口
@@ -100,7 +100,7 @@ echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=M
 | quoteOrderQty  | float64 | 否      | 下单金额, 例如: 100USDT  |
 | price          | float64 | 否      | 委托价格, 例如: 10000USDT  |
 | recvWindow     | int64   | 否      ||
-| timestamp      | int64   | 是      ||
+| timestamp      | int64   | 是      | 请求时间戳, 单位:毫秒 |
 
 **注意**
 - 限价单必须传`price`参数。
@@ -157,7 +157,7 @@ echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=M
 | symbol         | string  | 是      | 交易品种, 例如: BTC-USDT |
 | orderId        | int64   | 是      | 订单id |
 | recvWindow     | int64   | 否      ||
-| timestamp      | int64   | 是      ||
+| timestamp      | int64   | 是      | 请求时间戳, 单位:毫秒 |
 
 **响应**
 
@@ -207,7 +207,7 @@ echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=M
 | symbol         | string  | 是      | 交易品种, 例如: BTC-USDT |
 | orderId        | int64   | 是      | 订单id |
 | recvWindow     | int64   | 否      ||
-| timestamp      | int64   | 是      ||
+| timestamp      | int64   | 是      | 请求时间戳, 单位:毫秒 |
 
 **响应**
 
@@ -261,7 +261,7 @@ echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=M
 | ------         | ------  | ------  |  ------ |    
 | symbol         | string  | 是      | 交易品种, 例如: BTC-USDT |
 | recvWindow     | int64   | 否      ||
-| timestamp      | int64   | 是      ||
+| timestamp      | int64   | 是      | 请求时间戳, 单位:毫秒 |
 
 **响应**
 
@@ -323,11 +323,11 @@ echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=M
 | ------         | ------  | ------  |  ------ |    
 | symbol         | string  | 是      | 交易品种, 例如: BTC-USDT |
 | orderId        | int64   | 否      |  |
-| startTime      | int64   | 否      | 开始时间戳 |
-| endTime        | int64   | 否      | 结束时间戳 |
-| limit          | int64   | 否      |  |
+| startTime      | int64   | 否      | 开始时间戳, 单位:毫秒 |
+| endTime        | int64   | 否      | 结束时间戳, 单位:毫秒 |
+| limit          | int64   | 否      | 最大值为100 |
 | recvWindow     | int64   | 否      ||
-| timestamp      | int64   | 是      ||
+| timestamp      | int64   | 是      | 请求时间戳, 单位:毫秒 |
 
 **注意**
 - 如设置 orderId , 订单量将 >= orderId。否则将返回最新订单。
