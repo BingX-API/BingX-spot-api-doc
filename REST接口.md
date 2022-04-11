@@ -107,6 +107,7 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 - 限价单必须传`quantity`或`quoteOrderQty`其中一个。
 - 市价买单必须传`quoteOrderQty`参数。
 - 市价卖单必须传`quantity`参数。
+- 接口创建的订单在APP和Web页面不会显示。
 
 **响应**
 
