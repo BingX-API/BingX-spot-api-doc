@@ -86,7 +86,7 @@ echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=M
 
 **接口**
 ```
-    POST /openApi/spot/trade/v1/order
+    POST /openApi/spot/v1/trade/order
 ```
 
 **参数**
@@ -147,7 +147,7 @@ echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=M
 
 **接口**
 ```
-    POST /openApi/spot/trade/v1/cancel
+    POST /openApi/spot/v1/trade/cancel
 ```
 
 **参数**
@@ -197,7 +197,7 @@ echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=M
 
 **接口**
 ```
-    GET /openApi/spot/trade/v1/query
+    GET /openApi/spot/v1/trade/query
 ```
 
 **参数**
@@ -252,7 +252,7 @@ echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=M
 
 **接口**
 ```
-    GET /openApi/spot/trade/v1/openOrders
+    GET /openApi/spot/v1/trade/openOrders
 ```
 
 **参数**
@@ -314,7 +314,7 @@ echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=M
 
 **接口**
 ```
-    GET /openApi/spot/trade/v1/historyOrders
+    GET /openApi/spot/v1/trade/historyOrders
 ```
 
 **参数**
