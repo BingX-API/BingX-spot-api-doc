@@ -93,18 +93,18 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 
 | 参数名          | 类型     | 是否必填 | 备注     |
 | ------         | ------  | ------  |  ------ |    
-| symbol         | string  | 是      | 交易品种, 例如: BTC-USDT |
+| symbol         | string  | 是      | 交易品种, 例如: BTC-USDT, 请使用大写字母 |
 | side           | string  | 是      | 交易类型, BUY买 SELL卖 |
 | type           | string  | 是      | 订单类型, MARKET市价 LIMIT限价 |
 | quantity       | float64 | 否      | 下单数量, 例如: 0.1BTC  |
 | quoteOrderQty  | float64 | 否      | 下单金额, 例如: 100USDT  |
 | price          | float64 | 否      | 委托价格, 例如: 10000USDT  |
-| recvWindow     | int64   | 否      ||
+| recvWindow     | int64   | 否      | 请求有效时间空窗值, 单位:毫秒 |
 | timestamp      | int64   | 是      | 请求时间戳, 单位:毫秒 |
 
 **注意**
 - 限价单必须传`price`参数。
-- 限价单必须传`quantity`或`quoteOrderQty`其中一个。
+- 限价单必须传`quantity`或`quoteOrderQty`其中一个，当两个参数同时传递时，服务端优先使用参数`quantity`。
 - 市价买单必须传`quoteOrderQty`参数。
 - 市价卖单必须传`quantity`参数。
 - 接口创建的订单在APP和Web页面不会显示。
@@ -155,9 +155,9 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 
 | 参数名          | 类型     | 是否必填 | 备注     |
 | ------         | ------  | ------  |  ------ |    
-| symbol         | string  | 是      | 交易品种, 例如: BTC-USDT |
+| symbol         | string  | 是      | 交易品种, 例如: BTC-USDT, 请使用大写字母 |
 | orderId        | int64   | 是      | 订单id |
-| recvWindow     | int64   | 否      ||
+| recvWindow     | int64   | 否      | 请求有效时间空窗值, 单位:毫秒 |
 | timestamp      | int64   | 是      | 请求时间戳, 单位:毫秒 |
 
 **响应**
@@ -205,9 +205,9 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 
 | 参数名          | 类型     | 是否必填 | 备注     |
 | ------         | ------  | ------  |  ------ |    
-| symbol         | string  | 是      | 交易品种, 例如: BTC-USDT |
+| symbol         | string  | 是      | 交易品种, 例如: BTC-USDT, 请使用大写字母 |
 | orderId        | int64   | 是      | 订单id |
-| recvWindow     | int64   | 否      ||
+| recvWindow     | int64   | 否      | 请求有效时间空窗值, 单位:毫秒 |
 | timestamp      | int64   | 是      | 请求时间戳, 单位:毫秒 |
 
 **响应**
@@ -260,8 +260,8 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 
 | 参数名          | 类型     | 是否必填 | 备注     |
 | ------         | ------  | ------  |  ------ |    
-| symbol         | string  | 是      | 交易品种, 例如: BTC-USDT |
-| recvWindow     | int64   | 否      ||
+| symbol         | string  | 是      | 交易品种, 例如: BTC-USDT, 请使用大写字母 |
+| recvWindow     | int64   | 否      | 请求有效时间空窗值, 单位:毫秒 |
 | timestamp      | int64   | 是      | 请求时间戳, 单位:毫秒 |
 
 **响应**
@@ -322,12 +322,12 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 
 | 参数名          | 类型     | 是否必填 | 备注     |
 | ------         | ------  | ------  |  ------ |    
-| symbol         | string  | 是      | 交易品种, 例如: BTC-USDT |
+| symbol         | string  | 是      | 交易品种, 例如: BTC-USDT, 请使用大写字母 |
 | orderId        | int64   | 否      |  |
 | startTime      | int64   | 否      | 开始时间戳, 单位:毫秒 |
 | endTime        | int64   | 否      | 结束时间戳, 单位:毫秒 |
 | limit          | int64   | 否      | 最大值为100 |
-| recvWindow     | int64   | 否      ||
+| recvWindow     | int64   | 否      | 请求有效时间空窗值, 单位:毫秒 |
 | timestamp      | int64   | 是      | 请求时间戳, 单位:毫秒 |
 
 **注意**

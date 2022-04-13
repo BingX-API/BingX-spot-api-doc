@@ -1,0 +1,512 @@
+{
+	"info": {
+		"_postman_id": "02a8f91b-9a7c-49f4-912e-a98991b218c3",
+		"name": "spot_api_demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "placeOrder",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var apiKey = pm.collectionVariables.get(\"apiKey\");",
+							"var secretKey = pm.collectionVariables.get(\"secretKey\");",
+							"",
+							"var getOriginString = function(params) {",
+							"    var originString = \"\";",
+							"    var first = true;",
+							"    for (var i=0; i<params.length; i++) {",
+							"  \t\tif (!first) {",
+							"  \t\t\toriginString += \"&\";",
+							"  \t\t}",
+							"  \t\tfirst = false;",
+							"  \t\toriginString += params[i]['key'] + \"=\" + params[i]['value'];",
+							"  \t}",
+							"  \treturn originString;",
+							"};",
+							"",
+							"var getSignature = function(originString) {",
+							"  \tvar signature = CryptoJS.HmacSHA256(originString, secretKey);",
+							"    signature = signature.toString().toString('hex');",
+							"  \treturn signature;",
+							"};",
+							"",
+							"var timestamp = new Date().getTime();",
+							"var params = [];",
+							"params.push({\"key\":\"symbol\", \"value\": pm.request.url.query.get(\"symbol\")});",
+							"params.push({\"key\":\"side\", \"value\": pm.request.url.query.get(\"side\")});",
+							"params.push({\"key\":\"type\", \"value\": pm.request.url.query.get(\"type\")});",
+							"params.push({\"key\":\"quantity\", \"value\": pm.request.url.query.get(\"quantity\")});",
+							"params.push({\"key\":\"quoteOrderQty\", \"value\": pm.request.url.query.get(\"quoteOrderQty\")});",
+							"params.push({\"key\":\"price\", \"value\": pm.request.url.query.get(\"price\")});",
+							"params.push({\"key\":\"timestamp\", \"value\": timestamp});",
+							"var originString = getOriginString(params);",
+							"var signature = getSignature(originString);",
+							"",
+							"pm.collectionVariables.set(\"signature\", signature);",
+							"pm.collectionVariables.set(\"timestamp\", timestamp);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://open-api.bingx.com/openApi/spot/v1/trade/order?symbol=XRP-USDT&side=BUY&type=LIMIT&quantity=10&quoteOrderQty=0&price=0.5&timestamp={{timestamp}}&signature={{signature}}",
+					"protocol": "https",
+					"host": [
+						"open-api",
+						"bingx",
+						"com"
+					],
+					"path": [
+						"openApi",
+						"spot",
+						"v1",
+						"trade",
+						"order"
+					],
+					"query": [
+						{
+							"key": "symbol",
+							"value": "XRP-USDT"
+						},
+						{
+							"key": "side",
+							"value": "BUY"
+						},
+						{
+							"key": "type",
+							"value": "LIMIT"
+						},
+						{
+							"key": "quantity",
+							"value": "10"
+						},
+						{
+							"key": "quoteOrderQty",
+							"value": "0"
+						},
+						{
+							"key": "price",
+							"value": "0.5"
+						},
+						{
+							"key": "timestamp",
+							"value": "{{timestamp}}"
+						},
+						{
+							"key": "signature",
+							"value": "{{signature}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancelOrder",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var apiKey = pm.collectionVariables.get(\"apiKey\");",
+							"var secretKey = pm.collectionVariables.get(\"secretKey\");",
+							"",
+							"var getOriginString = function(params) {",
+							"    var originString = \"\";",
+							"    var first = true;",
+							"    for (var i=0; i<params.length; i++) {",
+							"  \t\tif (!first) {",
+							"  \t\t\toriginString += \"&\";",
+							"  \t\t}",
+							"  \t\tfirst = false;",
+							"  \t\toriginString += params[i]['key'] + \"=\" + params[i]['value'];",
+							"  \t}",
+							"  \treturn originString;",
+							"};",
+							"",
+							"var getSignature = function(originString) {",
+							"  \tvar signature = CryptoJS.HmacSHA256(originString, secretKey);",
+							"    signature = signature.toString().toString('hex');",
+							"  \treturn signature;",
+							"};",
+							"",
+							"var timestamp = new Date().getTime();",
+							"var params = [];",
+							"params.push({\"key\":\"symbol\", \"value\": pm.request.url.query.get(\"symbol\")});",
+							"params.push({\"key\":\"orderId\", \"value\": pm.request.url.query.get(\"orderId\")});",
+							"params.push({\"key\":\"timestamp\", \"value\": timestamp});",
+							"var originString = getOriginString(params);",
+							"var signature = getSignature(originString);",
+							"",
+							"pm.collectionVariables.set(\"signature\", signature);",
+							"pm.collectionVariables.set(\"timestamp\", timestamp);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://open-api.bingx.com/openApi/spot/v1/trade/cancel?symbol=XRP-USDT&orderId=1514087361158316032&timestamp={{timestamp}}&signature={{signature}}",
+					"protocol": "https",
+					"host": [
+						"open-api",
+						"bingx",
+						"com"
+					],
+					"path": [
+						"openApi",
+						"spot",
+						"v1",
+						"trade",
+						"cancel"
+					],
+					"query": [
+						{
+							"key": "symbol",
+							"value": "XRP-USDT"
+						},
+						{
+							"key": "orderId",
+							"value": "1514087361158316032"
+						},
+						{
+							"key": "timestamp",
+							"value": "{{timestamp}}"
+						},
+						{
+							"key": "signature",
+							"value": "{{signature}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "queryOrder",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var apiKey = pm.collectionVariables.get(\"apiKey\");",
+							"var secretKey = pm.collectionVariables.get(\"secretKey\");",
+							"",
+							"var getOriginString = function(params) {",
+							"    var originString = \"\";",
+							"    var first = true;",
+							"    for (var i=0; i<params.length; i++) {",
+							"  \t\tif (!first) {",
+							"  \t\t\toriginString += \"&\";",
+							"  \t\t}",
+							"  \t\tfirst = false;",
+							"  \t\toriginString += params[i]['key'] + \"=\" + params[i]['value'];",
+							"  \t}",
+							"  \treturn originString;",
+							"};",
+							"",
+							"var getSignature = function(originString) {",
+							"  \tvar signature = CryptoJS.HmacSHA256(originString, secretKey);",
+							"    signature = signature.toString().toString('hex');",
+							"  \treturn signature;",
+							"};",
+							"",
+							"var timestamp = new Date().getTime();",
+							"var params = [];",
+							"params.push({\"key\":\"symbol\", \"value\": pm.request.url.query.get(\"symbol\")});",
+							"params.push({\"key\":\"orderId\", \"value\": pm.request.url.query.get(\"orderId\")});",
+							"params.push({\"key\":\"timestamp\", \"value\": timestamp});",
+							"var originString = getOriginString(params);",
+							"var signature = getSignature(originString);",
+							"",
+							"pm.collectionVariables.set(\"signature\", signature);",
+							"pm.collectionVariables.set(\"timestamp\", timestamp);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://open-api.bingx.com/openApi/spot/v1/trade/query?symbol=XRP-USDT&orderId=1514087361158316032&timestamp={{timestamp}}&signature={{signature}}",
+					"protocol": "https",
+					"host": [
+						"open-api",
+						"bingx",
+						"com"
+					],
+					"path": [
+						"openApi",
+						"spot",
+						"v1",
+						"trade",
+						"query"
+					],
+					"query": [
+						{
+							"key": "symbol",
+							"value": "XRP-USDT"
+						},
+						{
+							"key": "orderId",
+							"value": "1514087361158316032"
+						},
+						{
+							"key": "timestamp",
+							"value": "{{timestamp}}"
+						},
+						{
+							"key": "signature",
+							"value": "{{signature}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "queryOpenOrders",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var apiKey = pm.collectionVariables.get(\"apiKey\");",
+							"var secretKey = pm.collectionVariables.get(\"secretKey\");",
+							"",
+							"var getOriginString = function(params) {",
+							"    var originString = \"\";",
+							"    var first = true;",
+							"    for (var i=0; i<params.length; i++) {",
+							"  \t\tif (!first) {",
+							"  \t\t\toriginString += \"&\";",
+							"  \t\t}",
+							"  \t\tfirst = false;",
+							"  \t\toriginString += params[i]['key'] + \"=\" + params[i]['value'];",
+							"  \t}",
+							"  \treturn originString;",
+							"};",
+							"",
+							"var getSignature = function(originString) {",
+							"  \tvar signature = CryptoJS.HmacSHA256(originString, secretKey);",
+							"    signature = signature.toString().toString('hex');",
+							"  \treturn signature;",
+							"};",
+							"",
+							"var timestamp = new Date().getTime();",
+							"var params = [];",
+							"params.push({\"key\":\"symbol\", \"value\": pm.request.url.query.get(\"symbol\")});",
+							"params.push({\"key\":\"timestamp\", \"value\": timestamp});",
+							"var originString = getOriginString(params);",
+							"var signature = getSignature(originString);",
+							"",
+							"pm.collectionVariables.set(\"signature\", signature);",
+							"pm.collectionVariables.set(\"timestamp\", timestamp);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://open-api.bingx.com/openApi/spot/v1/trade/openOrders?symbol=XRP-USDT&timestamp={{timestamp}}&signature={{signature}}",
+					"protocol": "https",
+					"host": [
+						"open-api",
+						"bingx",
+						"com"
+					],
+					"path": [
+						"openApi",
+						"spot",
+						"v1",
+						"trade",
+						"openOrders"
+					],
+					"query": [
+						{
+							"key": "symbol",
+							"value": "XRP-USDT"
+						},
+						{
+							"key": "timestamp",
+							"value": "{{timestamp}}"
+						},
+						{
+							"key": "signature",
+							"value": "{{signature}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "queryHistoryOrders",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var apiKey = pm.collectionVariables.get(\"apiKey\");",
+							"var secretKey = pm.collectionVariables.get(\"secretKey\");",
+							"",
+							"var getOriginString = function(params) {",
+							"    var originString = \"\";",
+							"    var first = true;",
+							"    for (var i=0; i<params.length; i++) {",
+							"  \t\tif (!first) {",
+							"  \t\t\toriginString += \"&\";",
+							"  \t\t}",
+							"  \t\tfirst = false;",
+							"  \t\toriginString += params[i]['key'] + \"=\" + params[i]['value'];",
+							"  \t}",
+							"  \treturn originString;",
+							"};",
+							"",
+							"var getSignature = function(originString) {",
+							"  \tvar signature = CryptoJS.HmacSHA256(originString, secretKey);",
+							"    signature = signature.toString().toString('hex');",
+							"  \treturn signature;",
+							"};",
+							"",
+							"var timestamp = new Date().getTime();",
+							"var params = [];",
+							"params.push({\"key\":\"symbol\", \"value\": pm.request.url.query.get(\"symbol\")});",
+							"params.push({\"key\":\"orderId\", \"value\": pm.request.url.query.get(\"orderId\")});",
+							"params.push({\"key\":\"startTime\", \"value\": pm.request.url.query.get(\"startTime\")});",
+							"params.push({\"key\":\"endTime\", \"value\": pm.request.url.query.get(\"endTime\")});",
+							"params.push({\"key\":\"limit\", \"value\": pm.request.url.query.get(\"limit\")});",
+							"params.push({\"key\":\"timestamp\", \"value\": timestamp});",
+							"var originString = getOriginString(params);",
+							"var signature = getSignature(originString);",
+							"",
+							"pm.collectionVariables.set(\"signature\", signature);",
+							"pm.collectionVariables.set(\"timestamp\", timestamp);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://open-api.bingx.com/openApi/spot/v1/trade/historyOrders?symbol=XRP-USDT&orderId=0&startTime=0&endTime=0&limit=2&timestamp={{timestamp}}&signature={{signature}}",
+					"protocol": "https",
+					"host": [
+						"open-api",
+						"bingx",
+						"com"
+					],
+					"path": [
+						"openApi",
+						"spot",
+						"v1",
+						"trade",
+						"historyOrders"
+					],
+					"query": [
+						{
+							"key": "symbol",
+							"value": "XRP-USDT"
+						},
+						{
+							"key": "orderId",
+							"value": "0"
+						},
+						{
+							"key": "startTime",
+							"value": "0"
+						},
+						{
+							"key": "endTime",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "timestamp",
+							"value": "{{timestamp}}"
+						},
+						{
+							"key": "signature",
+							"value": "{{signature}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{apiKey}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "X-BX-APIKEY",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apiKey",
+			"value": ""
+		},
+		{
+			"key": "secretKey",
+			"value": ""
+		},
+		{
+			"key": "signature",
+			"value": ""
+		},
+		{
+			"key": "timestamp",
+			"value": ""
+		}
+	]
+}
