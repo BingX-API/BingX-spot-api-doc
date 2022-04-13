@@ -36,7 +36,7 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
 {
 "id": "id1",
 "reqType": "sub",
-"dataType": "data to sub",
+"dataType": "data to sub"
 }
 
 成功订阅后，Websocket客户端将收到确认：
@@ -44,7 +44,7 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
 {
 "id": "id1",
 "code": 0,
-"msg": "",
+"msg": ""
 }
 之后, 一旦所订阅的数据有更新，Websocket客户端将收到服务器推送的更新消息
 
@@ -54,7 +54,7 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
 {
 "id": "id1",
 "reqType": "unsub",
-"dataType": "data to unsub",
+"dataType": "data to unsub"
 }
 
 取消订阅成功确认：
@@ -62,10 +62,14 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
 {
 "id": "id1",
 "code": 0,
-"msg": "",
+"msg": ""
 }
 
 
+# symbol说明
+   
+   symbol必须全大写
+ 
 # Websocket 行情推送
 
 ## 1. 订阅逐笔交易
@@ -74,44 +78,49 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
 
 **订阅类型**
 
-    dataType 为 <symbol>@trade，比如BTC_USDT@trade ETH_USDT@trade
+    dataType 为 <symbol>@trade，比如BTC-USDT@trade ETH-USDT@trade
+
+**订阅例子**
+
+    {"id":"24dd0e35-56a4-4f7a-af8a-394c7060909c","reqType":"sub","dataType":"BTC-USDT@trade","responseOriginal":true}
 
 **订阅参数**
 
 
-| 参数名 | 参数类型  | 必填 | 描述                                            |
-| ------------- |----|----|-----------------------------------------------|
-| symbol | String | 是 | 合约名称中需有"_"，如BTC_USDT                          |
+
+| 参数名 | 参数类型  | 必填 | 描述                   |
+| ------------- |----|----|----------------------|
+| symbol | String | 是 | 合约名称中需有"-"，如BTC-USDT |
 
 
 **推送数据**
 
-| 返回字段     |字段说明|  
-|----------|----|
-| dataType | 订阅的数据类型，例如 BTC_USDT@trade|
-| data     | 推送内容 |
-| e        | 事件类型 |
-| E        | 事件时间 |
-| s        | 交易对  |
-| t        | 交易ID | 
-| p        | 成交价格 | 
-| q        | 成交数量 | 
-| T        | 成交时间 |
+| 返回字段     | 字段说明                      |  
+|----------|---------------------------|
+| dataType | 订阅的数据类型，例如 BTC-USDT@trade |
+| data     | 推送内容                      |
+| e        | 事件类型                      |
+| E        | 事件时间                      |
+| s        | 交易对                       |
+| t        | 交易ID                      | 
+| p        | 成交价格                      | 
+| q        | 成交数量                      | 
+| T        | 成交时间                      |
 
 ```javascript
   # Response
-{
-        "dataType": "BTC_USDT@trade",
-        "data": {
+  {
+      "data": {
+            "E": 1649832413551,
+            "T": 1649832413512,
             "e": "trade",
-            "E": 1649420935293,
+            "p": "40125.48",
+            "q": "0.007146",
             "s": "BTC_USDT",
-            "t": "568042",
-            "p": "43387.62",
-            "q": "0.007007",
-            "T": 1649420935163
-        }
-}
+            "t": "33685717"
+     },
+     "dataType": "BTC-USDT@trade"
+  }
 ```
 
 
@@ -121,14 +130,18 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
 
 **订阅类型**
 
-    dataType 为 <symbol>@kline_<interval>，比如BTC_USDT@kline_1min
+    dataType 为 <symbol>@kline_<interval>，比如BTC-USDT@kline_1min
+
+**订阅例子**
+
+    {"id":"e745cd6d-d0f6-4a70-8d5a-043e4c741b40","reqType":"sub","dataType":"BTC-USDT@kline_1min","responseOriginal":true}
 
 **订阅参数**
 
 | 参数名  | 参数类型  | 必填 | 字段描述 | 描述                   |
 | -------|--------|--- |-------|----------------------|
-| symbol | String | 是 |合约名称| 合约名称中需有"_"，如BTC_USDT |
-| interval | String | 是 |k线类型| 参考字段说明，如分钟，小时，周等 |
+| symbol | String | 是 |合约名称| 合约名称中需有"-"，如BTC-USDT |
+| interval | String | 是 |k线类型| 参考字段说明，如分钟，小时，周等     |
 
 
 **备注**
@@ -144,72 +157,72 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
 
 | 返回字段     | 字段说明                           |  
 |----------|--------------------------------|
-| dataType | 订阅的数据类型，例如 BTC_USDT@kline_1min |
+| dataType | 订阅的数据类型，例如 BTC-USDT@kline_1min |
 | data     | 推送内容                           |
 | e        | 事件类型                           |
 | E        | 事件时间                           |
 | s        | 交易对                            |
 | K        | 数据                             |
-| t        | 这根K线的起始时间                           |
-| T        | 这根K线的结束时间                           |
-| s        | 交易对                           |
+| t        | 这根K线的起始时间                      |
+| T        | 这根K线的结束时间                      |
+| s        | 交易对                            |
 | i        | K线间隔                           |
-| o        | 这根K线期间第一笔成交价                           |
-| c        | 这根K线期间末一笔成交价                           |
-| h        | 这根K线期间最高成交价                           |
-| l        | 这根K线期间最低成交价                           |
-| v        | 这根K线期间成交量                           |
-| n        | 这根K线期间成交笔数                           |
-| q        | 这根K线期间成交额                           |
+| o        | 这根K线期间第一笔成交价                   |
+| c        | 这根K线期间末一笔成交价                   |
+| h        | 这根K线期间最高成交价                    |
+| l        | 这根K线期间最低成交价                    |
+| v        | 这根K线期间成交量                      |
+| n        | 这根K线期间成交笔数                     |
+| q        | 这根K线期间成交额                      |
 
    ```javascript
     # Response
 {
-     "dataType": "@kline_BTC_USDT",
-            "data": {
-                  "e": "kline",
-                  "E": 1649421336258,
-                  "s": "BTC_USDT",
-                  "K": {
-                    "t": 1649421300000,
-                    "T": 1649421359999,
-                    "s": "BTC_USDT",
-                    "i": "1min",
-                    "o": "43339.98",
-                    "c": "43340.39",
-                    "h": "43340.89",
-                    "l": "43326.31",
-                    "v": "0.054111",
-                    "n": 22,
-                    "q": "2344.999231"
-          }
-      }
+  "data": {
+  "E": 1649832726550,
+          "K": {
+           "T": 1649832779999,
+            "c": "40017.48",
+            "h": "40027.83",
+            "i": "1min",
+            "l": "40017.48",
+            "n": 13,
+            "o": "40025.42",
+            "q": "2693.492344",
+            "s": "BTC_USDT",
+            "t": 1649832720000,
+            "v": "0.067295"
+      },
+          "e": "kline",
+          "s": "BTC_USDT"
+},
+    "dataType": "BTC-USDT@kline_1min"
 }
    ```
 
 ## 3. 有限档深度信息
 
-    每秒推送有限档深度信息。固定20档
+    每秒推送有限档深度信息。固定20档，某些小币种可能不足20档
 
 **订阅类型**
 
-    dataType 为 <symbol>@depth，比如BTC_USDT@depth
+    dataType 为 <symbol>@depth，比如BTC-USDT@depth
 
 **订阅参数**
 
 | 参数名  | 参数类型  | 必填 | 字段描述 | 描述                   |
 | -------|--------|--- |-------|----------------------|
-| symbol | String | 是 |合约名称| 合约名称中需有"_"，如BTC_USDT |
+| symbol | String | 是 |合约名称| 合约名称中需有"-"，如BTC-USDT |
 
 
 **推送数据**
 
-| 返回字段         |字段说明|  
-|--------------|----|
-| dataType | 订阅的数据类型，例如 BTC_USDT@depth |
-| data         | 推送内容 |
-| bids         | 变动的买单深度 |
-| asks | 变动的卖单深度 |
+| 返回字段         | 字段说明                      |  
+|--------------|---------------------------|
+| dataType | 订阅的数据类型，例如 BTC-USDT@depth |
+| data         | 推送内容                      |
+| bids         | 变动的买单深度                   |
+| asks | 变动的卖单深度                   |
 
 
    ```javascript
