@@ -331,7 +331,7 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 | timestamp      | int64   | 是      | 请求时间戳, 单位:毫秒 |
 
 **注意**
-- 如设置 orderId , 订单量将 >= orderId。否则将返回最新订单。
+- 如设置 orderId , 订单将 >= orderId。否则将返回最新订单。
 - 如果设置 startTime 和 endTime, orderId 就不需要设置。
 
 **响应**
