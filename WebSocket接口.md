@@ -116,7 +116,7 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
             "e": "trade",
             "p": "40125.48",
             "q": "0.007146",
-            "s": "BTC_USDT",
+            "s": "BTC-USDT",
             "t": "33685717"
      },
      "dataType": "BTC-USDT@trade"
@@ -189,12 +189,12 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
             "n": 13,
             "o": "40025.42",
             "q": "2693.492344",
-            "s": "BTC_USDT",
+            "s": "BTC-USDT",
             "t": 1649832720000,
             "v": "0.067295"
       },
           "e": "kline",
-          "s": "BTC_USDT"
+          "s": "BTC-USDT"
 },
     "dataType": "BTC-USDT@kline_1min"
 }
@@ -228,7 +228,7 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
    ```javascript
     # Response
 {
-      "dataType": "BTC_USDT@depth",
+      "dataType": "BTC-USDT@depth",
       "data": {
         "bids": [
               [
