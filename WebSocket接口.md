@@ -207,6 +207,10 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
 **订阅类型**
 
     dataType 为 <symbol>@depth，比如BTC-USDT@depth
+   
+**订阅例子**
+
+    {"id":"975f7385-7f28-4ef1-93af-df01cb9ebb53","reqType":"sub","dataType":"BTC-USDT@depth","responseOriginal":true}
 
 **订阅参数**
 
