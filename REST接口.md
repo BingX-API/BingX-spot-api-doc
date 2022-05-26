@@ -11,6 +11,9 @@
     - [查询订单](#查询订单)
     - [查询委托订单列表](#查询委托订单列表)
     - [查询历史订单列表](#查询历史订单列表)
+    - [生成 Listen Key](#生成 Listen Key)
+    - [延长 Listen Key 有效期](#延长 Listen Key 有效期)
+    - [关闭 Listen Key](#关闭 Listen Key)
 
 <!-- TOC -->
 
@@ -381,7 +384,7 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 ```
 
 
-## 生成 Listen Key (USER_STREAM)
+## 生成 Listen Key
 
 listen key的有效时间为1小时
 
@@ -416,7 +419,7 @@ curl -X POST 'https://open-api.bingx.com/openApi/user/auth/userDataStream' --hea
 ```
 
 
-## 延长 Listen Key 有效期 (USER_STREAM)
+## 延长 Listen Key 有效期
 
 有效期延长至本次调用后60分钟,建议每30分钟发送一个 ping 。
 
@@ -443,7 +446,7 @@ http status 204 没有请求参数
 http status 404 没有这个listenKey
 
 
-## 关闭 Listen Key (USER_STREAM)
+## 关闭 Listen Key
 
 关闭用户数据流。
 
