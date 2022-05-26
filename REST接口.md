@@ -11,9 +11,9 @@
     - [查询订单](#查询订单)
     - [查询委托订单列表](#查询委托订单列表)
     - [查询历史订单列表](#查询历史订单列表)
-    - [生成 Listen Key](#生成 Listen Key)
-    - [延长 Listen Key 有效期](#延长 Listen Key 有效期)
-    - [关闭 Listen Key](#关闭 Listen Key)
+    - [生成ListenKey](#生成 Listen Key)
+    - [延长ListenKey有效期](#延长 Listen Key 有效期)
+    - [关闭ListenKey](#关闭 Listen Key)
 
 <!-- TOC -->
 
