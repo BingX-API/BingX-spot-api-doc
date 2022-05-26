@@ -43,7 +43,7 @@ HTTP状态码200表示成功响应，并可能包含内容。如果响应含有�
 
 * 100440 - 下单价格跟市场市场价格偏离太远
 
-* 100500 - 服务器内部错误 
+* 100500 - 服务器内部错误
 
 * 100503 - 服务器繁忙
 
@@ -379,3 +379,92 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
     }
 }
 ```
+
+
+## 生成 Listen Key (USER_STREAM)
+
+listen key的有效时间为1小时
+
+**接口**
+```
+    POST /openApi/user/auth/userDataStream
+```
+
+CURL
+
+```
+curl -X POST 'https://open-api.bingx.com/openApi/user/auth/userDataStream' --header "X-BX-APIKEY:g6ikQYpMiWLecMQ39DUivd4ENem9ygzAim63xUPFhRtCFBUDNLajRoZNiubPemKT"
+
+```
+
+**请求头参数**
+
+| 参数名          | 类型     | 是否必填 | 备注         |
+| ------         | ------  | ------  |------------|    
+| X-BX-APIKEY    | string  | 是      | 请求的API KEY |
+
+
+**响应**
+
+| 参数名                | 类型     | 备注  |
+| ------               |--------|-----|    
+| listenKey               | string | 返回的 |
+
+
+```
+{"listenKey":"a8ea75681542e66f1a50a1616dd06ed77dab61baa0c296bca03a9b13ee5f2dd7"}
+```
+
+
+## 延长 Listen Key 有效期 (USER_STREAM)
+
+有效期延长至本次调用后60分钟,建议每30分钟发送一个 ping 。
+
+**接口**
+```
+    PUT /openApi/user/auth/userDataStream
+```
+
+```
+curl -i -X PUT 'https://open-api.bingx.com/openApi/user/auth/userDataStream?listenKey=d84d39fe78762b39e202ba204bf3f7ebed43bbe7a481299779cb53479ea9677d'
+```
+
+**请求参数**
+
+| 参数名          | 类型     | 是否必填 | 备注         |
+| ------         | ------  | ------  |------------|    
+| listenKey   | string  | 是      | 请求的API KEY |
+
+
+**响应**
+
+http status 200 成功
+http status 204 没有请求参数
+http status 404 没有这个listenKey
+
+
+## 关闭 Listen Key (USER_STREAM)
+
+关闭用户数据流。
+
+**接口**
+```
+    DELETE /openApi/user/auth/userDataStream
+```
+
+```
+curl -i -X DELETE 'https://open-api.bingx.com/openApi/user/auth/userDataStream?listenKey=d84d39fe78762b39e202ba204bf3f7ebed43bbe7a481299779cb53479ea9677d'
+```
+
+**请求参数**
+
+| 参数名          | 类型     | 是否必填 | 备注         |
+| ------         | ------  | ------  |------------|    
+| listenKey   | string  | 是      | 请求的API KEY |
+
+
+**响应**
+
+http status 200 成功
+http status 204 没有请求参数
+http status 404 没有这个listenKey
