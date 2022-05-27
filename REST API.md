@@ -1,17 +1,20 @@
 <!-- TOC -->
 
 - [Basic Information](#basic-information)
-    - [Service Address](#service-address)
-    - [Service Application](#service-application)
-    - [Common Error Codes](#common-error-codes)
+  - [Service Address](#service-address)
+  - [Service Application](#service-application)
+  - [Common Error Codes](#common-error-codes)
 - [Signature Authentication](#signature-authentication)
-    - [Signature Description](#signature-description)
+  - [Signature Description](#signature-description)
 - [Trade Interface](#trade-interface)
-    - [Create an Order](#create-an-order)
-    - [Cancel an Order](#cancel-an-order)
-    - [Query Orders](#query-orders)
-    - [Query Open Orders](#query-open-orders)
-    - [Query Order History](#query-order-history)
+  - [Create an Order](#create-an-order)
+  - [Cancel an Order](#cancel-an-order)
+  - [Query Orders](#query-orders)
+  - [Query Open Orders](#query-open-orders)
+  - [Query Order History](#query-order-history)
+  - [Generate Listen Key](#generate-listen-key)
+  - [extend Listen Key Validity period](#extend-listen-key-validity-period)
+  - [delete Listen Key](#delete-listen-key)
 
 <!-- TOC -->
 
@@ -380,4 +383,95 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
         ]
     }
 }
+```
+
+## generate Listen Key
+
+listen key Valid for 1 hour
+
+**interface**
+```
+    POST /openApi/user/auth/userDataStream
+```
+
+CURL
+
+```
+curl -X POST 'https://open-api.bingx.com/openApi/user/auth/userDataStream' --header "X-BX-APIKEY:g6ikQYpMiWLecMQ39DUivd4ENem9ygzAim63xUPFhRtCFBUDNLajRoZNiubPemKT"
+
+```
+
+**request header parameters**
+
+| parameter name          | type   | Is it required | Remark         |
+| ------         |--------|----------------|------------|    
+| X-BX-APIKEY    | string | yes            | API KEY |
+
+
+**response**
+
+| parameter name                | type   | Remark     |
+| ------               |--------|------------|    
+| listenKey               | string | listen Key |
+
+
+```
+{"listenKey":"a8ea75681542e66f1a50a1616dd06ed77dab61baa0c296bca03a9b13ee5f2dd7"}
+```
+
+
+## extend Listen Key Validity period
+
+The validity period is extended to 60 minutes after this call, and it is recommended to send a ping every 30 minutes.
+
+**interface**
+```
+    PUT /openApi/user/auth/userDataStream
+```
+
+```
+curl -i -X PUT 'https://open-api.bingx.com/openApi/user/auth/userDataStream?listenKey=d84d39fe78762b39e202ba204bf3f7ebed43bbe7a481299779cb53479ea9677d'
+```
+
+**request parameters**
+
+| parameter name          | type   | Is it required | Remark         |
+| ------         | ------  |----------------|------------|    
+| listenKey   | string  | yes            | API KEY |
+
+
+**response**
+
+```
+http status 200 success
+http status 204 not content
+http status 404 not find key
+```
+
+## delete Listen Key
+
+delete User data flow.
+
+**interface**
+```
+    DELETE /openApi/user/auth/userDataStream
+```
+
+```
+curl -i -X DELETE 'https://open-api.bingx.com/openApi/user/auth/userDataStream?listenKey=d84d39fe78762b39e202ba204bf3f7ebed43bbe7a481299779cb53479ea9677d'
+```
+
+**request parameters**
+
+| parameter name          | type   | Is it required | Remark        |
+| ------         | ------  |----------------|-----------|    
+| listenKey   | string  | yes            | 的API KEY |
+
+
+**response**
+
+```
+http status 200 success
+http status 204 not content
+http status 404 not find key
 ```
