@@ -465,7 +465,7 @@ curl -i -X DELETE 'https://open-api.bingx.com/openApi/user/auth/userDataStream?l
 
 | parameter name          | type   | Is it required | Remark        |
 | ------         | ------  |----------------|-----------|    
-| listenKey   | string  | yes            | 的API KEY |
+| listenKey   | string  | yes            | API KEY |
 
 
 **response**
