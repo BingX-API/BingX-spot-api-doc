@@ -441,10 +441,11 @@ curl -i -X PUT 'https://open-api.bingx.com/openApi/user/auth/userDataStream?list
 
 **响应**
 
+```
 http status 200 成功
 http status 204 没有请求参数
 http status 404 没有这个listenKey
-
+```
 
 ## 关闭 Listen Key
 
@@ -468,6 +469,8 @@ curl -i -X DELETE 'https://open-api.bingx.com/openApi/user/auth/userDataStream?l
 
 **响应**
 
+```
 http status 200 成功
 http status 204 没有请求参数
 http status 404 没有这个listenKey
+```
