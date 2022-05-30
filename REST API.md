@@ -12,6 +12,8 @@
   - [Query Orders](#query-orders)
   - [Query Open Orders](#query-open-orders)
   - [Query Order History](#query-order-history)
+  - [Query Assets](#query-assets)
+- [Other Interface](#other-interface)
   - [Generate Listen Key](#generate-listen-key)
   - [extend Listen Key Validity period](#extend-listen-key-validity-period)
   - [delete Listen Key](#delete-listen-key)
@@ -232,6 +234,8 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 | time                 | int64   | Order timestamp |
 | updateTime           | int64   | Update timestamp |
 | origQuoteOrderQty    | string  | Original quote order quantity |
+| fee                  | string  | Fee |
+| feeAsset             | string  | Fee asset |
 
 ```
 {
@@ -249,7 +253,9 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
         "side": "BUY",
         "time": 1649821532000,
         "updateTime": 1649821543000,
-        "origQuoteOrderQty": "0"
+        "origQuoteOrderQty": "0",
+        "fee": "0",
+        "feeAsset": "XRP"
     }
 }
 
@@ -384,6 +390,52 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
     }
 }
 ```
+
+## Query Assets
+
+**API**
+```
+    GET /openApi/spot/v1/account/balance
+```
+
+**Parameters**
+
+| Parameters     | Type    | Required | Description     |
+| ------         | ------  | ------   |  ------ |    
+| recvWindow     | int64   | NO       | Request valid time window value, Unit: milliseconds |
+| timestamp      | int64   | YES      | Timestamp of initiating the request, Unit: milliseconds |
+
+
+**Response**
+
+| Parameters           | Type    | Description     |
+| ------               | ------  |  ------  |    
+| balances             | array   | Asset list, element fields refer to the following table  |
+
+| Parameters           | Type    | Description     |
+| ------               | ------  |  ------ |    
+| asset                | string  | Asset name   |
+| free                 | string  | Available asset |
+| locked               | string  | Freeze asset |
+
+```
+{
+    "code": 0,
+    "msg": "",
+    "ttl": 1,
+    "data": {
+        "balances": [
+            {
+                "asset": "USDT",
+                "free": "16.73971130673954",
+                "locked": "0"
+            }
+        ]
+    }
+}
+```
+
+# Other Interface
 
 ## generate Listen Key
 

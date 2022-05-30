@@ -11,9 +11,11 @@
     - [查询订单](#查询订单)
     - [查询委托订单列表](#查询委托订单列表)
     - [查询历史订单列表](#查询历史订单列表)
-    - [生成ListenKey](#生成 Listen Key)
-    - [延长ListenKey有效期](#延长 Listen Key 有效期)
-    - [关闭ListenKey](#关闭 Listen Key)
+    - [查询资产](#查询资产)
+- [其他接口](#其他接口)
+    - [生成ListenKey](#生成-Listen-Key)
+    - [延长ListenKey有效期](#延长-Listen-Key-有效期)
+    - [关闭ListenKey](#关闭-Listen-Key)
 
 <!-- TOC -->
 
@@ -231,6 +233,8 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 | time                 | int64   | 下单时间戳 |
 | updateTime           | int64   | 更新时间戳 |
 | origQuoteOrderQty    | string  | 下单金额 |
+| fee                  | string  | 手续费 |
+| feeAsset             | string  | 手续费资产类型 |
 
 ```
 {
@@ -248,7 +252,9 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
         "side": "BUY",
         "time": 1649821532000,
         "updateTime": 1649821543000,
-        "origQuoteOrderQty": "0"
+        "origQuoteOrderQty": "0",
+        "fee": "0",
+        "feeAsset": "XRP"
     }
 }
 ```
@@ -383,6 +389,50 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 }
 ```
 
+## 查询资产
+
+**接口**
+```
+    GET /openApi/spot/v1/account/balance
+```
+
+**参数**
+
+| 参数名          | 类型     | 是否必填 | 备注     |
+| ------         | ------  | ------  |  ------ |    
+| recvWindow     | int64   | 否      | 请求有效时间空窗值, 单位:毫秒 |
+| timestamp      | int64   | 是      | 请求时间戳, 单位:毫秒 |
+
+**响应**
+
+| 参数名                | 类型     | 备注     |
+| ------               | ------  |  ------  |    
+| balances             | array   | 资产列表, 元素字段参考下表  |
+
+| 参数名                | 类型     | 备注     |
+| ------               | ------  |  ------ |    
+| asset                | string  | 资产名   |
+| free                 | string  | 可用资金 |
+| locked               | string  | 冻结资金 |
+
+```
+{
+    "code": 0,
+    "msg": "",
+    "ttl": 1,
+    "data": {
+        "balances": [
+            {
+                "asset": "USDT",
+                "free": "16.73971130673954",
+                "locked": "0"
+            }
+        ]
+    }
+}
+```
+
+# 其他接口
 
 ## 生成 Listen Key
 

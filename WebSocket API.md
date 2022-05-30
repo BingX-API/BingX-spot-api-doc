@@ -10,6 +10,8 @@
     - [Trade Streams](#1-trade-streams)
     - [Kline Streams](#2-kline-streams)
     - [Partial Book Depth Streams](#3-partial-book-depth-streams)
+- [Websocket Account Data](#Websocket-account-data)
+    - [Order Update Streams](#1-order-update-streams)
 
 <!-- /TOC -->
 
@@ -248,6 +250,76 @@ For now, only 1 min kline data is provided
 }
    ```
 
+# Websocket Account Data
+
+## 1. Order Update Streams
+
+**Subscription Type**
+```
+dataType is spot.executionReport
+```
+    
+**Subscription Example**
+```
+{"id":"e745cd6d-d0f6-4a70-8d5a-043e4c741b40","reqType":"sub","dataType":"spot.executionReport","responseOriginal":true}
+```
+
+**Push Data**
+
+| Return Parameters         | Field Description                      |  
+|--------------  |---------------------------   |
+| dataType       | The type of data subscribed, such as spot.executionReport |
+| data           | Push Data             |
+| e              | Event type             |
+| E              | Event time             |
+| s              | Symbol               |
+| S              | BUY/SELL             |
+| o              | MARKET/LIMIT             |
+| q              | Original quote order quantity          |
+| p              | Original quote order price          |
+| x              | NEW/CANCELED/TRADE             |
+| X              | NEW/PENDING/PARTIALLY_FILLED/FILLED/CANCELED/FAILED             |
+| i              | Order ID              |
+| l              | Transaction quantity         |
+| z              | Accumulated transaction quantity      |
+| L              | Transaction price      |
+| n              | Fee           |
+| N              | Fee asset        |
+| T              | Transaction time             |
+| t              | Transaction ID              |
+| O              | Order creation time         |
+| Z              | Cumulative transaction amount    |
+| Y              | Transaction amount      |
+| Q              | Original quote order amount     |
+
+```
+{
+  "data": {
+      "e": "executionReport",
+      "E": 1499405658658,
+      "s": "BTC-USDT",
+      "S": "BUY",
+      "o": "LIMIT",
+      "q": "1.00000000",
+      "p": "0.10264410",
+      "x": "NEW",
+      "X": "NEW",
+      "i": 4293153,
+      "l": "0.00000000",
+      "z": "0.00000000",
+      "L": "0.00000000",
+      "n": "0",         
+      "N": "USDT",        
+      "T": 1499405658657,
+      "t": -1,           
+      "O": 1499405658657,
+      "Z": "0.00000000", 
+      "Y": "0.00000000", 
+      "Q": "0.00000000"  
+    },
+    "dataType": "spot.executionReport"
+}
+``` 
 
 **Remarks**
 
