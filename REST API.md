@@ -7,6 +7,7 @@
 - [Signature Authentication](#signature-authentication)
   - [Signature Description](#signature-description)
 - [Trade Interface](#trade-interface)
+  - [Query Symbols](#query-symbols)
   - [Create an Order](#create-an-order)
   - [Cancel an Order](#cancel-an-order)
   - [Query Orders](#query-orders)
@@ -91,6 +92,54 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 ```
 
 # Trade Interface
+
+## Query Symbols
+
+**API**
+```
+    GET /openApi/spot/v1/common/symbols
+```
+
+**Parameters**
+
+| Parameters     | Type    | Required | Description     |
+| ------         | ------  | ------  |  ------ |    
+| symbol         | string  | 否      | Trading pair, e.g., BTC-USDT |
+
+**Response**
+
+| Parameters           | Type    | Description     |
+| ------               | ------  |  ------ |    
+| symbolInfos          | array  | Symbol list, refer to the table below for order fields |
+
+| Parameters           | Type    | Description     |
+| ------               | ------  |  ------ |    
+| symbol               | string  | Trading pair |
+| coinPrecision        | int  | Coin precision |
+| valuationPrecision   | int  | Valuation coin precision |
+| coinMinAmount        | float64  | Minimum transaction quantity |
+| valuationMinAmount   | float64  | Minimum transaction amount |
+| status               | int  |0 offline, 1 online |
+
+```
+{
+    "code": 0,
+    "msg": "",
+    "ttl": 1,
+    "data": {
+        "symbolInfos": [
+            {
+                "symbol": "MANA-USDT",
+                "coinPrecision": 2,
+                "valuationPrecision": 4,
+                "coinMinAmount": 1.2,
+                "valuationMinAmount": 6,
+                "status": 1
+            }
+        ]
+    }
+}
+```
 
 ## Create an Order
 

@@ -6,6 +6,7 @@
 - [签名认证](#签名认证)
     - [签名说明](#签名说明)
 - [交易接口](#交易接口)
+    - [查询交易品种](#查询交易品种)
     - [下单](#下单)
     - [撤单](#撤单)
     - [查询订单](#查询订单)
@@ -90,6 +91,54 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 ```
 
 # 交易接口
+
+## 查询交易品种
+
+**接口**
+```
+    GET /openApi/spot/v1/common/symbols
+```
+
+**参数**
+
+| 参数名          | 类型     | 是否必填 | 备注     |
+| ------         | ------  | ------  |  ------ |    
+| symbol         | string  | 否      | 交易品种, 例如: BTC-USDT, 请使用大写字母 |
+
+**响应**
+
+| 参数名                | 类型     | 备注     |
+| ------               | ------  |  ------ |    
+| symbolInfos          | array  | 品种信息列表, 元素参考下表 |
+
+| 参数名                | 类型     | 备注     |
+| ------               | ------  |  ------ |    
+| symbol               | string  | 交易品种 |
+| coinPrecision        | int  | 基础币精度 |
+| valuationPrecision   | int  | 计价币精度 |
+| coinMinAmount        | float64  | 最小交易数量 |
+| valuationMinAmount   | float64  | 最小交易金额 |
+| status               | int  | 0下线, 1上线 |
+
+```
+{
+    "code": 0,
+    "msg": "",
+    "ttl": 1,
+    "data": {
+        "symbolInfos": [
+            {
+                "symbol": "MANA-USDT",
+                "coinPrecision": 2,
+                "valuationPrecision": 4,
+                "coinMinAmount": 1.2,
+                "valuationMinAmount": 6,
+                "status": 1
+            }
+        ]
+    }
+}
+```
 
 ## 下单
 
