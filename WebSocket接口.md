@@ -119,7 +119,7 @@ code错误码说明
 
 **订阅例子**
 
-    {"id":"24dd0e35-56a4-4f7a-af8a-394c7060909c","reqType":"sub","dataType":"BTC-USDT@trade"}
+    {"id":"24dd0e35-56a4-4f7a-af8a-394c7060909c","dataType":"BTC-USDT@trade"}
 
 **订阅参数**
 
