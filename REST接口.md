@@ -6,13 +6,14 @@
 - [签名认证](#签名认证)
     - [签名说明](#签名说明)
 - [交易接口](#交易接口)
-    - [查询交易品种](#查询交易品种)
     - [下单](#下单)
     - [撤单](#撤单)
     - [查询订单](#查询订单)
     - [查询委托订单列表](#查询委托订单列表)
     - [查询历史订单列表](#查询历史订单列表)
     - [查询资产](#查询资产)
+- [行情接口](#行情接口)
+    - [查询交易品种](#查询交易品种)
 - [其他接口](#其他接口)
     - [生成ListenKey](#生成-Listen-Key)
     - [延长ListenKey有效期](#延长-Listen-Key-有效期)
@@ -82,63 +83,32 @@ type = MARKET
 apiKey = Zsm4DcrHBTewmVaElrdwA67PmivPv6VDK6JAkiECZ9QfcUnmn67qjCOgvRuZVOzU
 secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 ```
-- 签名方法
+- 参数通过`query string`发送示例
 ```
 1. 对接口参数进行拼接: quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET
 2. 对拼接好的参数字符串使用secretKey生成签名: 428a3c383bde514baff0d10d3c20e5adfaacaf799e324546dafe5ccc480dd827
    echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET" | openssl dgst -sha256 -hmac "UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI" -hex
-3. 发送请求: https://open-api.bingx.com/openApi/spot/v1/trade/order?quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET&signature=428a3c383bde514baff0d10d3c20e5adfaacaf799e324546dafe5ccc480dd827
+3. 发送请求: curl -H 'X-BX-APIKEY: Zsm4DcrHBTewmVaElrdwA67PmivPv6VDK6JAkiECZ9QfcUnmn67qjCOgvRuZVOzU' 'https://open-api.bingx.com/openApi/spot/v1/trade/order?quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET&signature=428a3c383bde514baff0d10d3c20e5adfaacaf799e324546dafe5ccc480dd827'
+```
+- 参数通过`request body`发送示例
+```
+1. 对接口参数进行拼接: quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET
+2. 对拼接好的参数字符串使用secretKey生成签名: 428a3c383bde514baff0d10d3c20e5adfaacaf799e324546dafe5ccc480dd827
+   echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET" | openssl dgst -sha256 -hmac "UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI" -hex
+3. 发送请求: curl -H 'X-BX-APIKEY: Zsm4DcrHBTewmVaElrdwA67PmivPv6VDK6JAkiECZ9QfcUnmn67qjCOgvRuZVOzU' -X POST 'https://open-api.bingx.com/openApi/spot/v1/trade/order' -d 'quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET&signature=428a3c383bde514baff0d10d3c20e5adfaacaf799e324546dafe5ccc480dd827'
+```
+- 参数通过`query string`和`request body`发送示例
+```
+queryString: quoteOrderQty=20&side=BUY&symbol=ETHUSDT
+requestBody: timestamp=1649404670162&type=MARKET
+
+1. 对接口参数进行拼接: quoteOrderQty=20&side=BUY&symbol=ETHUSDTtimestamp=1649404670162&type=MARKET
+2. 对拼接好的参数字符串使用secretKey生成签名: 94e0b4925060a615e1e372d4c929015d4b59d3c89067dc0beeafcfb33a6d8d10
+   echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDTtimestamp=1649404670162&type=MARKET" | openssl dgst -sha256 -hmac "UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI" -hex
+3. 发送请求: curl -H 'X-BX-APIKEY: Zsm4DcrHBTewmVaElrdwA67PmivPv6VDK6JAkiECZ9QfcUnmn67qjCOgvRuZVOzU' -X POST 'https://open-api.bingx.com/openApi/spot/v1/trade/order?quoteOrderQty=20&side=BUY&symbol=ETHUSDT' -d 'timestamp=1649404670162&type=MARKET&signature=94e0b4925060a615e1e372d4c929015d4b59d3c89067dc0beeafcfb33a6d8d10'
 ```
 
 # 交易接口
-
-## 查询交易品种
-
-**接口**
-```
-    GET /openApi/spot/v1/common/symbols
-```
-
-**参数**
-
-| 参数名          | 类型     | 是否必填 | 备注     |
-| ------         | ------  | ------  |  ------ |    
-| symbol         | string  | 否      | 交易品种, 例如: BTC-USDT, 请使用大写字母 |
-
-**响应**
-
-| 参数名                | 类型     | 备注     |
-| ------               | ------  |  ------ |    
-| symbolInfos          | array  | 品种信息列表, 元素参考下表 |
-
-| 参数名                | 类型     | 备注     |
-| ------               | ------  |  ------ |    
-| symbol               | string  | 交易品种 |
-| coinPrecision        | int  | 基础币精度 |
-| valuationPrecision   | int  | 计价币精度 |
-| coinMinAmount        | float64  | 最小交易数量 |
-| valuationMinAmount   | float64  | 最小交易金额 |
-| status               | int  | 0下线, 1上线 |
-
-```
-{
-    "code": 0,
-    "msg": "",
-    "ttl": 1,
-    "data": {
-        "symbolInfos": [
-            {
-                "symbol": "MANA-USDT",
-                "coinPrecision": 2,
-                "valuationPrecision": 4,
-                "coinMinAmount": 1.2,
-                "valuationMinAmount": 6,
-                "status": 1
-            }
-        ]
-    }
-}
-```
 
 ## 下单
 
@@ -475,6 +445,59 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
                 "asset": "USDT",
                 "free": "16.73971130673954",
                 "locked": "0"
+            }
+        ]
+    }
+}
+```
+
+# 行情接口
+
+## 查询交易品种
+
+**接口**
+```
+    GET /openApi/spot/v1/common/symbols
+```
+
+**参数**
+
+| 参数名          | 类型     | 是否必填 | 备注     |
+| ------         | ------  | ------  |  ------ |    
+| symbol         | string  | 否      | 交易品种, 例如: BTC-USDT, 请使用大写字母 |
+
+**响应**
+
+| 参数名                | 类型     | 备注     |
+| ------               | ------  |  ------ |    
+| symbols              | array  | 品种信息列表, 元素参考下表 |
+
+| 参数名                | 类型     | 备注     |
+| ------               | ------  |  ------ |    
+| symbol               | string  | 交易品种 |
+| baseAssetPrecision   | int     | 数量精度 |
+| quoteAssetPrecision  | int     | 数量精度 |
+| minQty               | float64 | 最小交易数量 |
+| maxQty               | float64 | 最大交易数量 |
+| minPrice             | float64 | 最小交易金额 |
+| maxPrice             | float64 | 最大交易金额 |
+| status               | int     | 0下线, 1上线 |
+
+```
+{
+    "code":0,
+    "msg":"",
+    "data":{
+        "symbols":[
+            {
+                "symbol":"BUSD-USDT",
+                "baseAssetPrecision":0,
+                "quoteAssetPrecision":5,
+                "minQty":11.98635772,
+                "maxQty":19978,
+                "minPrice":12,
+                "maxPrice":20000,
+                "status":1
             }
         ]
     }

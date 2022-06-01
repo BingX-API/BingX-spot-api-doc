@@ -7,13 +7,14 @@
 - [Signature Authentication](#signature-authentication)
   - [Signature Description](#signature-description)
 - [Trade Interface](#trade-interface)
-  - [Query Symbols](#query-symbols)
   - [Create an Order](#create-an-order)
   - [Cancel an Order](#cancel-an-order)
   - [Query Orders](#query-orders)
   - [Query Open Orders](#query-open-orders)
   - [Query Order History](#query-order-history)
   - [Query Assets](#query-assets)
+- [Market Interface](#market-interface)
+  - [Query Symbols](#query-symbols)
 - [Other Interface](#other-interface)
   - [Generate Listen Key](#generate-listen-key)
   - [extend Listen Key Validity period](#extend-listen-key-validity-period)
@@ -83,63 +84,32 @@ type = MARKET
 apiKey = Zsm4DcrHBTewmVaElrdwA67PmivPv6VDK6JAkiECZ9QfcUnmn67qjCOgvRuZVOzU
 secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 ```
-- Signature method
+- Parameters are sent via `query string` example
 ```
 1. Assemble API parameters: quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET
 2. Use secretKey to generate a signature from the assembled parameter string: 428a3c383bde514baff0d10d3c20e5adfaacaf799e324546dafe5ccc480dd827
    echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET" | openssl dgst -sha256 -hmac "UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI" -hex
-3. Send request: https://open-api.bingx.com/openApi/spot/v1/trade/order?quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET&signature=428a3c383bde514baff0d10d3c20e5adfaacaf799e324546dafe5ccc480dd827
+3. Send request: curl -H 'X-BX-APIKEY: Zsm4DcrHBTewmVaElrdwA67PmivPv6VDK6JAkiECZ9QfcUnmn67qjCOgvRuZVOzU' 'https://open-api.bingx.com/openApi/spot/v1/trade/order?quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET&signature=428a3c383bde514baff0d10d3c20e5adfaacaf799e324546dafe5ccc480dd827'
+```
+- Parameters are sent via `request body` example
+```
+1. Assemble API parameters: quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET
+2. Use secretKey to generate a signature from the assembled parameter string: 428a3c383bde514baff0d10d3c20e5adfaacaf799e324546dafe5ccc480dd827
+   echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET" | openssl dgst -sha256 -hmac "UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI" -hex
+3. Send request: curl -H 'X-BX-APIKEY: Zsm4DcrHBTewmVaElrdwA67PmivPv6VDK6JAkiECZ9QfcUnmn67qjCOgvRuZVOzU' -X POST 'https://open-api.bingx.com/openApi/spot/v1/trade/order' -d 'quoteOrderQty=20&side=BUY&symbol=ETHUSDT&timestamp=1649404670162&type=MARKET&signature=428a3c383bde514baff0d10d3c20e5adfaacaf799e324546dafe5ccc480dd827'
+```
+- Parameters are sent via `query string` and `request body` example
+```
+queryString: quoteOrderQty=20&side=BUY&symbol=ETHUSDT
+requestBody: timestamp=1649404670162&type=MARKET
+
+1. Assemble API parameters: quoteOrderQty=20&side=BUY&symbol=ETHUSDTtimestamp=1649404670162&type=MARKET
+2. Use secretKey to generate a signature from the assembled parameter string: 94e0b4925060a615e1e372d4c929015d4b59d3c89067dc0beeafcfb33a6d8d10
+   echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDTtimestamp=1649404670162&type=MARKET" | openssl dgst -sha256 -hmac "UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI" -hex
+3. Send request: curl -H 'X-BX-APIKEY: Zsm4DcrHBTewmVaElrdwA67PmivPv6VDK6JAkiECZ9QfcUnmn67qjCOgvRuZVOzU' -X POST 'https://open-api.bingx.com/openApi/spot/v1/trade/order?quoteOrderQty=20&side=BUY&symbol=ETHUSDT' -d 'timestamp=1649404670162&type=MARKET&signature=94e0b4925060a615e1e372d4c929015d4b59d3c89067dc0beeafcfb33a6d8d10'
 ```
 
 # Trade Interface
-
-## Query Symbols
-
-**API**
-```
-    GET /openApi/spot/v1/common/symbols
-```
-
-**Parameters**
-
-| Parameters     | Type    | Required | Description     |
-| ------         | ------  | ------  |  ------ |    
-| symbol         | string  | 否      | Trading pair, e.g., BTC-USDT |
-
-**Response**
-
-| Parameters           | Type    | Description     |
-| ------               | ------  |  ------ |    
-| symbolInfos          | array  | Symbol list, refer to the table below for order fields |
-
-| Parameters           | Type    | Description     |
-| ------               | ------  |  ------ |    
-| symbol               | string  | Trading pair |
-| coinPrecision        | int  | Coin precision |
-| valuationPrecision   | int  | Valuation coin precision |
-| coinMinAmount        | float64  | Minimum transaction quantity |
-| valuationMinAmount   | float64  | Minimum transaction amount |
-| status               | int  |0 offline, 1 online |
-
-```
-{
-    "code": 0,
-    "msg": "",
-    "ttl": 1,
-    "data": {
-        "symbolInfos": [
-            {
-                "symbol": "MANA-USDT",
-                "coinPrecision": 2,
-                "valuationPrecision": 4,
-                "coinMinAmount": 1.2,
-                "valuationMinAmount": 6,
-                "status": 1
-            }
-        ]
-    }
-}
-```
 
 ## Create an Order
 
@@ -478,6 +448,59 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
                 "asset": "USDT",
                 "free": "16.73971130673954",
                 "locked": "0"
+            }
+        ]
+    }
+}
+```
+
+# Market Interface
+
+## Query Symbols
+
+**API**
+```
+    GET /openApi/spot/v1/common/symbols
+```
+
+**Parameters**
+
+| Parameters     | Type    | Required | Description     |
+| ------         | ------  | ------  |  ------ |    
+| symbol         | string  | 否      | Trading pair, e.g., BTC-USDT |
+
+**Response**
+
+| Parameters           | Type    | Description     |
+| ------               | ------  |  ------ |    
+| symbols              | array  | Symbol list, refer to the table below for order fields |
+
+| Parameters           | Type    | Description     |
+| ------               | ------  |  ------ |    
+| symbol               | string  | Trading pair |
+| baseAssetPrecision   | int     | Quantitative precision |
+| quoteAssetPrecision  | int     | Price precision |
+| minQty               | float64 | Minimum transaction quantity |
+| maxQty               | float64 | Maximum transaction quantity |
+| minPrice             | float64 | Minimum transaction amount |
+| maxPrice             | float64 | Maximum transaction amount |__
+| status               | int     | 0 offline, 1 online |
+
+```
+{
+    "code":0,
+    "msg":"",
+    "data":{
+        "symbols":[
+            {
+                "symbol":"BUSD-USDT",
+                "baseAssetPrecision":0,
+                "quoteAssetPrecision":5,
+                "minQty":11.98635772,
+                "maxQty":19978,
+                "minPrice":12,
+                "maxPrice":20000,
+                "status":1
             }
         ]
     }
