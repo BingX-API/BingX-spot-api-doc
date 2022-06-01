@@ -21,9 +21,6 @@
 
 The base URL of Websocket Market Data is: `wss://open-api-ws.bingx.com/market`
 
-## Data Compression
-
-All response data from Websocket Server are compressed into GZIP format. Clients have to decompress them for further use.
 
 ## Heartbeats
 
@@ -34,40 +31,75 @@ When the Websocket Client receives this heartbeat message, it should return Pong
 ## Subscriptions
 
 After successfully establishing a connection with the Websocket Server, the Websocket Client sends the following request to subscribe to a specific topic:
-
+```
 {
 "id": "id1",
 "reqType": "sub",
 "dataType": "data to sub"
 }
-
+```
 After a successful subscription, the Websocket Client will receive a confirmation message:
-
+```
 {
 "id": "id1",
 "code": 0,
 "msg": ""
 }
+```
 After that, once the subscribed data is updated, the Websocket Client will receive the update message pushed by the Server
+
+| Parameters | Type  | Required | Description    |
+| ------------- |----|----|----------------------|
+| id | String | yes | id is the unique id passed in by the user, it will be returned when it is returned, which is used to distinguish idempotent verification by the user|
+
+
+Error code description
+```
+    0:"SUCCESS"
+   
+
+    100204:"SEARCH_NO_CONTENT"
+
+  
+    100205:"REPEAT_REQUEST"
+
+ 
+    100400:"ILLEGAL_ARGUMENT"
+
+ 
+    100401:"AUTHENTICATION_FAIL"
+
+   
+    100403:"AUTHORIZATION_FAIL"
+
+  
+    100410:"FREQUENCY_LIMIT"
+
+   
+    100500:"INTERNAL_SERVER_ERROR"
+
+   
+    100503L:"SERVER_BUSY"
+```
 
 ## Unsubscribe
 
 The format to unsubscribe is as follows:
-
+```
 {
 "id": "id1",
 "reqType": "unsub",
 "dataType": "data to unsub"
 }
-
+```
 Confirmation of Unsubscription:
-
+```
 {
 "id": "id1",
 "code": 0,
 "msg": ""
 }
-
+```
 
 # symbol Description
 
@@ -77,7 +109,7 @@ Confirmation of Unsubscription:
 
 ## 1. Trade Streams
 
-    The feature pushes real-time information as a snapshot when a trade is made. Each transaction or trade has a unique buyer and seller. Snapshots are sent at a frequency of once every 1 second.
+    The feature pushes real-time information as a snapshot when a trade is made. Each transaction or trade has a unique buyer and seller.
 
 **Subscription Type**
 
@@ -85,7 +117,7 @@ Confirmation of Unsubscription:
 
 **Subscription Example**
 
-    {"id":"24dd0e35-56a4-4f7a-af8a-394c7060909c","reqType":"sub","dataType":"BTC-USDT@trade","responseOriginal":true}
+    {"id":"24dd0e35-56a4-4f7a-af8a-394c7060909c","dataType":"BTC-USDT@trade"}
 
 **Subscription Parameters**
 
@@ -137,14 +169,14 @@ Confirmation of Unsubscription:
 
 **Subscription Example**
 
-    {"id":"e745cd6d-d0f6-4a70-8d5a-043e4c741b40","reqType":"sub","dataType":"BTC-USDT@kline_1min","responseOriginal":true}
+    {"id":"e745cd6d-d0f6-4a70-8d5a-043e4c741b40","dataType":"BTC-USDT@kline_1min"}
 
 ** Subscription Parameters**
 
 | Parameters  | Type  | Required | Field Description | Description                   |
 | -------|--------|--- |-------|----------------------|
 | symbol | String | YES |Trading pair | There must be a dash "-" in the contract name, e.g., BTC-USDT |
-| interval | String | YES |Kline type| Parameter description, e.g., minute, hour, week, etc.     |
+| interval | String | YES |Kline type| Parameter description, e.g., minute, hour, week, etc. kline type ,1min, 5min, 15min, 30min, 60min, 1day    |
 
 
 **Remarks**
@@ -261,7 +293,7 @@ dataType is spot.executionReport
     
 **Subscription Example**
 ```
-{"id":"e745cd6d-d0f6-4a70-8d5a-043e4c741b40","reqType":"sub","dataType":"spot.executionReport","responseOriginal":true}
+{"id":"e745cd6d-d0f6-4a70-8d5a-043e4c741b40","dataType":"spot.executionReport"}
 ```
 
 **Push Data**
