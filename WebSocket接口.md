@@ -143,6 +143,7 @@ code错误码说明
 | p        | 成交价格                      | 
 | q        | 成交数量                      | 
 | T        | 成交时间                      |
+| m        | 买方是否是做市方。如true，则此次成交是一个主动卖出单，否则是一个主动买入单。                      |
 
 ```javascript
   # Response
@@ -155,6 +156,7 @@ code错误码说明
             "q": "0.007146",
             "s": "BTC-USDT",
             "t": "33685717"
+            "m": true
      },
      "dataType": "BTC-USDT@trade"
   }
