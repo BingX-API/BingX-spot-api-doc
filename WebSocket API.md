@@ -79,7 +79,7 @@ Error code description
     100500:"INTERNAL_SERVER_ERROR"
 
    
-    100503L:"SERVER_BUSY"
+    100503:"SERVER_BUSY"
 ```
 
 ## Unsubscribe
