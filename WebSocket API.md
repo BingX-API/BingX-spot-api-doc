@@ -139,6 +139,7 @@ Confirmation of Unsubscription:
 | p        | Price			| 
 | q        | Quantity			| 
 | T        | Trade time			|
+| m        | Is the buyer the market maker?                      |
 
 ```javascript
   # Response
@@ -150,7 +151,8 @@ Confirmation of Unsubscription:
             "p": "40125.48",
             "q": "0.007146",
             "s": "BTC-USDT",
-            "t": "33685717"
+            "t": "33685717",
+            "m": true
      },
      "dataType": "BTC-USDT@trade"
   }
