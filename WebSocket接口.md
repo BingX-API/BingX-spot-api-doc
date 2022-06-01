@@ -37,9 +37,14 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
 
 {
 "id": "id1",
-"reqType": "sub",
 "dataType": "data to sub"
 }
+
+
+| 参数名 | 参数类型  | 必填 | 描述                   |
+| ------------- |----|----|----------------------|
+| id | String | 是 | id是用户传入的唯一id,返回时将返回，用于用户区分幂等性校验|
+
 
 成功订阅后，Websocket客户端将收到确认：
 
@@ -49,6 +54,36 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
 "msg": ""
 }
 之后, 一旦所订阅的数据有更新，Websocket客户端将收到服务器推送的更新消息
+
+```
+    SUCCESS(0,"SUCCESS"),
+    /**
+     * 100xxx为通用状态码.
+     */
+    // 服务器搜索无数据
+    SEARCH_NO_CONTENT(100204,"SEARCH_NO_CONTENT"),
+
+    // 重复请求
+    REPEAT_REQUEST(100205,"REPEAT_REQUEST"),
+
+    // 客户端请求参数错误
+    ILLEGAL_ARGUMENT(100400,"ILLEGAL_ARGUMENT"),
+
+    // 客户端认证失败
+    AUTHENTICATION_FAIL(100401,"AUTHENTICATION_FAIL"),
+
+    // 客户端权限校验失败
+    AUTHORIZATION_FAIL(100403,"AUTHORIZATION_FAIL"),
+
+    // 客户端请求频率限制
+    FREQUENCY_LIMIT(100410,"FREQUENCY_LIMIT"),
+
+    // 服务器错误
+    INTERNAL_SERVER_ERROR(100500,"INTERNAL_SERVER_ERROR"),
+
+    // 服务器繁忙
+    SERVER_BUSY(100503,"SERVER_BUSY");
+```
 
 ## 取消订阅
 取消订阅的格式如下：
@@ -76,7 +111,7 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
 
 ## 1. 订阅逐笔交易
 
-    逐笔交易推送每一笔成交的信息。成交，或者说交易的定义是仅有一个吃单者与一个挂单者相互交易。快照频率为每秒1次。
+    逐笔交易推送每一笔成交的信息。成交，或者说交易的定义是仅有一个吃单者与一个挂单者相互交易
 
 **订阅类型**
 
@@ -84,7 +119,7 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
 
 **订阅例子**
 
-    {"id":"24dd0e35-56a4-4f7a-af8a-394c7060909c","reqType":"sub","dataType":"BTC-USDT@trade","responseOriginal":true}
+    {"id":"24dd0e35-56a4-4f7a-af8a-394c7060909c","reqType":"sub","dataType":"BTC-USDT@trade"}
 
 **订阅参数**
 
@@ -136,7 +171,7 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
 
 **订阅例子**
 
-    {"id":"e745cd6d-d0f6-4a70-8d5a-043e4c741b40","reqType":"sub","dataType":"BTC-USDT@kline_1min","responseOriginal":true}
+    {"id":"e745cd6d-d0f6-4a70-8d5a-043e4c741b40","dataType":"BTC-USDT@kline_1min"}
 
 **订阅参数**
 
@@ -212,7 +247,7 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
    
 **订阅例子**
 
-    {"id":"975f7385-7f28-4ef1-93af-df01cb9ebb53","reqType":"sub","dataType":"BTC-USDT@depth","responseOriginal":true}
+    {"id":"975f7385-7f28-4ef1-93af-df01cb9ebb53","dataType":"BTC-USDT@depth"}
 
 **订阅参数**
 
@@ -264,7 +299,7 @@ dataType 为 spot.executionReport
     
 **订阅例子**
 ```
-{"id":"e745cd6d-d0f6-4a70-8d5a-043e4c741b40","reqType":"sub","dataType":"spot.executionReport","responseOriginal":true}
+{"id":"e745cd6d-d0f6-4a70-8d5a-043e4c741b40","dataType":"spot.executionReport"}
 ```
 
 **推送数据**
