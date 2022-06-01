@@ -242,7 +242,7 @@ For now, only 1 min kline data is provided
 
 **Subscription Type**
 
-       dataType 为 <symbol>@depth<level>，as BTC-USDT@depth, BTC-USDT@depth20, BTC-USDT@depth100 
+       dataType is <symbol>@depth<level>，as BTC-USDT@depth, BTC-USDT@depth20, BTC-USDT@depth100 
 ```
  {"id":"975f7385-7f28-4ef1-93af-df01cb9ebb53","dataType":"BTC-USDT@depth"}
 ```
