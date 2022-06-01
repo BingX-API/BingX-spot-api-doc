@@ -238,12 +238,14 @@ For now, only 1 min kline data is provided
 
 ## 3. Partial Book Depth Streams
 
-    Partial book depth information is pushed every second, fixed at level 20. Some trading pairs may not reach level 20.
+    Partial book depth information is pushed every second, fixed at level 20. Some trading pairs may not reach level 20. 100 files can be selected
 
 **Subscription Type**
 
-    dataType is <symbol>@depth, such as BTC-USDT@depth
-
+       dataType 为 <symbol>@depth<level>，as BTC-USDT@depth, BTC-USDT@depth20, BTC-USDT@depth100 
+```
+ {"id":"975f7385-7f28-4ef1-93af-df01cb9ebb53","dataType":"BTC-USDT@depth"}
+```
 **Subscription Parameters**
 
 | Parameters  | Type  | Required | Field Description | Description                   |
