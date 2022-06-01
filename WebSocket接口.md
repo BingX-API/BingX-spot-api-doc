@@ -21,9 +21,6 @@
 
 行情Websocket的接入URL：`wss://open-api-ws.bingx.com/market`
 
-## 数据压缩
-
-WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 client 在收到数据之后解压。
 
 ## 心跳信息
 
