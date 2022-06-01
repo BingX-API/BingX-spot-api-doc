@@ -327,7 +327,7 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 
 | 参数名                | 类型     | 备注     |
 | ------               | ------  |  ------  |    
-| orders               | array   | 订单列表, 订单字段参考下表  |
+| orders               | array   | 订单列表,最大长度为2000, 订单字段参考下表  |
 
 | 参数名                | 类型     | 备注     |
 | ------               | ------  |  ------ |    
@@ -384,7 +384,8 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 | orderId        | int64   | 否      |  |
 | startTime      | int64   | 否      | 开始时间戳, 单位:毫秒 |
 | endTime        | int64   | 否      | 结束时间戳, 单位:毫秒 |
-| limit          | int64   | 否      | 最大值为100 |
+| pageIndex      | int64   | 是      | 分页页码,必须大于0 |
+| pageSize       | int64   | 是      | 分页数量,必须大于0,最大值为100 |
 | recvWindow     | int64   | 否      | 请求有效时间空窗值, 单位:毫秒 |
 | timestamp      | int64   | 是      | 请求时间戳, 单位:毫秒 |
 
