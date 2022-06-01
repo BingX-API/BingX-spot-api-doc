@@ -329,7 +329,7 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 
 | Parameters           | Type    | Description     |
 | ------               | ------  |  ------  |    
-| orders               | array   | Order list, refer to the table below for order fields  |
+| orders               | array   | Order list,max length is 2000, refer to the table below for order fields  |
 
 | Parameters           | Type    | Description     |
 | ------               | ------  |  ------ |    
@@ -386,7 +386,8 @@ secretKey = UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI
 | orderId        | int64   | NO       |  |
 | startTime      | int64   | NO       | Start timestamp, Unit: ms |
 | endTime        | int64   | NO       | End timestamp, Unit: ms |
-| limit          | int64   | NO       | Max 100 |
+| pageIndex      | int64   | NO       | Page number, must greather than 0 |
+| pageSize       | int64   | NO       | Page size,Max 100 |
 | recvWindow     | int64   | NO       | Request valid time window value, Unit: milliseconds |
 | timestamp      | int64   | YES      | Timestamp of initiating the request, Unit: milliseconds |
 
