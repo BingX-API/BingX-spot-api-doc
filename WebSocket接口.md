@@ -81,7 +81,7 @@ code错误码说明
     100500:"INTERNAL_SERVER_ERROR"
 
     // 服务器繁忙
-    100503L:"SERVER_BUSY"
+    100503:"SERVER_BUSY"
 ```
 
 ## 取消订阅
