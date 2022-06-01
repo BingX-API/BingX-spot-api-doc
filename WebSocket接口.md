@@ -55,34 +55,35 @@ WebSocket 行情接口返回的所有数据都进行了 GZIP 压缩，需要 cli
 }
 之后, 一旦所订阅的数据有更新，Websocket客户端将收到服务器推送的更新消息
 
+code错误码说明
 ```
-    SUCCESS(0,"SUCCESS"),
+    0:"SUCCESS"
     /**
      * 100xxx为通用状态码.
      */
     // 服务器搜索无数据
-    SEARCH_NO_CONTENT(100204,"SEARCH_NO_CONTENT"),
+    100204:"SEARCH_NO_CONTENT"
 
     // 重复请求
-    REPEAT_REQUEST(100205,"REPEAT_REQUEST"),
+    100205:"REPEAT_REQUEST"
 
     // 客户端请求参数错误
-    ILLEGAL_ARGUMENT(100400,"ILLEGAL_ARGUMENT"),
+    100400:"ILLEGAL_ARGUMENT"
 
     // 客户端认证失败
-    AUTHENTICATION_FAIL(100401,"AUTHENTICATION_FAIL"),
+    100401:"AUTHENTICATION_FAIL"
 
     // 客户端权限校验失败
-    AUTHORIZATION_FAIL(100403,"AUTHORIZATION_FAIL"),
+    100403:"AUTHORIZATION_FAIL"
 
     // 客户端请求频率限制
-    FREQUENCY_LIMIT(100410,"FREQUENCY_LIMIT"),
+    100410:"FREQUENCY_LIMIT"
 
     // 服务器错误
-    INTERNAL_SERVER_ERROR(100500,"INTERNAL_SERVER_ERROR"),
+    100500:"INTERNAL_SERVER_ERROR"
 
     // 服务器繁忙
-    SERVER_BUSY(100503,"SERVER_BUSY");
+    100503L:"SERVER_BUSY"
 ```
 
 ## 取消订阅
