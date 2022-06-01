@@ -34,7 +34,6 @@ After successfully establishing a connection with the Websocket Server, the Webs
 ```
 {
 "id": "id1",
-"reqType": "sub",
 "dataType": "data to sub"
 }
 ```
