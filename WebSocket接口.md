@@ -241,15 +241,15 @@ code错误码说明
 
 ## 3. 有限档深度信息
 
-    每秒推送有限档深度信息。固定20档，某些小币种可能不足20档
+     每秒推送有限档深度信息。默认20档，某些小币种可能不足20档，可以选择100档
 
 **订阅类型**
 
-    dataType 为 <symbol>@depth，比如BTC-USDT@depth
+      dataType 为 <symbol>@depth<level>，比如BTC-USDT@depth, BTC-USDT@depth20, BTC-USDT@depth100 
    
 **订阅例子**
 
-    {"id":"975f7385-7f28-4ef1-93af-df01cb9ebb53","dataType":"BTC-USDT@depth"}
+  {"id":"975f7385-7f28-4ef1-93af-df01cb9ebb53","dataType":"BTC-USDT@depth"}
 
 **订阅参数**
 
