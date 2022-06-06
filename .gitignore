@@ -1,1 +1,5 @@
 .idea
+/spot-docs.iml
+/demo/java/spring-demo-sdk/bingx-openapi-trade-sdk-demo/bingx-openapi-trade-sdk-demo.iml
+/demo/java/spring-demo-sdk/bingx-openapi-trade-sdk/bingx-openapi-trade-sdk.iml
+/demo/java/spring-demo-sdk/spring-demo-sdk.iml

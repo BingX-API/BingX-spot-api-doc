@@ -1,4 +1,4 @@
-package trade_demo;
+package com.coinsea.openapi.trade.sdk.demo;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -8,12 +8,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
-import java.util.Base64;
-import java.util.Base64.Encoder;
 import java.util.Map;
 import java.util.TreeMap;
 
