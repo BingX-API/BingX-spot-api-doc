@@ -159,8 +159,8 @@ public class SpotTradeClient {
                 throw new RuntimeException(ERROR_CODE_MSG_MAP.getOrDefault(baseResponse.getCode(), "unknown code error"));
             }
         } else {
-            logger.info("response error, request param:{}", request);
-            throw new RuntimeException("request error");
+            logger.info("response error, request param:{}, response:{}", request, response);
+            throw new RuntimeException("request error, response body:" + response.body());
         }
     }
 

@@ -11,9 +11,9 @@ public class ApiProperty {
 
     private String secretKey;
 
-    private Integer connectionTimeout = 2000;
+    private Integer connectionTimeout = 5000;
 
-    private Integer readTimeout = 2000;
+    private Integer readTimeout = 5000;
 
     private String url = "https://open-api.bingx.com";
 

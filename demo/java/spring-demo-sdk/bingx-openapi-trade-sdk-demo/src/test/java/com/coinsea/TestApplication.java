@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 
 @RunWith(value = SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -29,10 +30,16 @@ public class TestApplication {
         logger.info("res:{}", JacksonUtils.obj2json(queryAccountAssetResponse));
     }
 
+    /**
+     * @throws Exception ex
+     */
     @Test
     public void test1() throws Exception{
         OrderRequest request = new OrderRequest();
-        request.setSymbol("VST");
+        request.setSymbol("BTC-USDT");
+        request.setSide("BUY");
+        request.setType("MARKET");
+        request.setQuoteOrderQty(new BigDecimal("7"));
         OrderResponse response = spotTradeClient.order(request);
         logger.info("res:{}", JacksonUtils.obj2json(response));
     }
@@ -40,7 +47,8 @@ public class TestApplication {
     @Test
     public void test2() throws Exception{
         QueryOrderRequest request = new QueryOrderRequest();
-        request.setSymbol("VST");
+        request.setSymbol("BTC-USDT");
+        request.setOrderId(1533661867833032704L);
         QueryOrderResponse response = spotTradeClient.queryOrder(request);
         logger.info("res:{}", JacksonUtils.obj2json(response));
     }

@@ -18,9 +18,9 @@ public class JacksonUtils {
             .setSerializationInclusion(JsonInclude.Include.NON_EMPTY)
             .setSerializationInclusion(JsonInclude.Include.NON_NULL)
             .registerModule(new JavaTimeModule())
-            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
             //.enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS)
-            .setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+            //.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 
     private JacksonUtils() {
 
