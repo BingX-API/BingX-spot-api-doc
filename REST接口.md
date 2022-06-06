@@ -124,6 +124,7 @@ requestBody: timestamp=1649404670162&type=MARKET
 | symbol         | string  | 是      | 交易品种, 例如: BTC-USDT, 请使用大写字母 |
 | side           | string  | 是      | 交易类型, BUY买 SELL卖 |
 | type           | string  | 是      | 订单类型, MARKET市价 LIMIT限价 |
+| timeInForce    | string  | 否      | IOC, POC |
 | quantity       | float64 | 否      | 下单数量, 例如: 0.1BTC  |
 | quoteOrderQty  | float64 | 否      | 下单金额, 例如: 100USDT  |
 | price          | float64 | 否      | 委托价格, 例如: 10000USDT  |
@@ -476,12 +477,12 @@ requestBody: timestamp=1649404670162&type=MARKET
 | 参数名                | 类型     | 备注     |
 | ------               | ------  |  ------ |    
 | symbol               | string  | 交易品种 |
-| baseAssetPrecision   | int     | 数量精度 |
-| quoteAssetPrecision  | int     | 数量精度 |
+| tickSize             | float64 | 价格步长 |
+| stepSize             | float64 | 数量步长 |
 | minQty               | float64 | 最小交易数量 |
 | maxQty               | float64 | 最大交易数量 |
-| minPrice             | float64 | 最小交易金额 |
-| maxPrice             | float64 | 最大交易金额 |
+| minNotional          | float64 | 最小交易金额 |
+| maxNotional          | float64 | 最大交易金额 |
 | status               | int     | 0下线, 1上线 |
 
 ```
@@ -491,13 +492,13 @@ requestBody: timestamp=1649404670162&type=MARKET
     "data":{
         "symbols":[
             {
-                "symbol":"BUSD-USDT",
-                "baseAssetPrecision":0,
-                "quoteAssetPrecision":5,
-                "minQty":11.98635772,
-                "maxQty":19978,
-                "minPrice":12,
-                "maxPrice":20000,
+                "symbol":"BTC-USDT",
+                "tickSize": 0.01,
+                "stepSize": 0.000001,
+                "minQty": 0.00012,
+                "maxQty": 1.24947,
+                "minNotional": 6,
+                "maxNotional": 50000,
                 "status":1
             }
         ]
