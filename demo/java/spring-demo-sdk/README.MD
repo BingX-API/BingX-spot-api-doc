@@ -2,16 +2,16 @@
 bingx-openapi-trade-sdk-springboot
 ===================================
 
-### 简介
-Bingx OpenApi Java SpringBoot SDK， 帮助你快速接入Bingx的做市功能
+### Introduce
+Bingx OpenApi Java SpringBoot SDK, help you access Bingx quickly.
 
-### 要求
-- Jdk版本为1.8或1.8+
-- SpringBoot框架
+### Require
+- Java JDK version >= 1.8
+- SpringBoot Environment
 
-### 快速开始
+### Quick Start
 
-- 添加依赖:
+- add maven pom:
 ```xml
 <dependency>
     <groupId>com.coinsea</groupId>
@@ -19,12 +19,12 @@ Bingx OpenApi Java SpringBoot SDK， 帮助你快速接入Bingx的做市功能
     <version>1.0.0</version>
 </dependency>
 ```
-- application配置文件添加:
+- add your key and secret in application.properties/application.yml:
 ```
 bingx.apiKey= yourkey
 bingx.secretKey= yoursecret
 ```
-- Java使用:
+- how to use:
 ```java
 @Component
 public class Demo {
@@ -32,7 +32,7 @@ public class Demo {
     private SpotTradeClient spotTradeClient;
 
     public void placeOrder(){
-        // 下单
+        // order
         OrderRequest orderRequest = new OrderRequest();
         // fill Field
         orderRequest.setSymbol("USDT");
@@ -41,8 +41,8 @@ public class Demo {
 }
 ```
 
-### 更新日志
+### Change Log
 
 ##### 1.0.0
-- 初始化SDK
-- 提供下单、撤单、查询订单、查询委托订单、查询历史订单、查询账户资产功能
+- init SDK
+- provide basic function interface, such as order、cancel order eggs.

@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.coinsea</groupId>
-    <artifactId>spring-demo-sdk</artifactId>
+    <artifactId>websocket-demo-sdk</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
     <modules>
-        <module>bingx-openapi-trade-sdk</module>
-        <module>bingx-openapi-trade-demo</module>
+        <module>bingx-openapi-websocket-sdk</module>
+        <module>bingx-openapi-websocket-demo</module>
     </modules>
 
     <properties>
@@ -18,4 +18,5 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
+
 </project>
