@@ -109,6 +109,7 @@ requestBody: timestamp=1649404670162&type=MARKET
 3. Send request: curl -H 'X-BX-APIKEY: Zsm4DcrHBTewmVaElrdwA67PmivPv6VDK6JAkiECZ9QfcUnmn67qjCOgvRuZVOzU' -X POST 'https://open-api.bingx.com/openApi/spot/v1/trade/order?quoteOrderQty=20&side=BUY&symbol=ETHUSDT' -d 'timestamp=1649404670162&type=MARKET&signature=94e0b4925060a615e1e372d4c929015d4b59d3c89067dc0beeafcfb33a6d8d10'
 ```
 
+Note: The order is that queryString comes first and request body comes after. Add up and connect with & in the middle, such as queryString:a=1&b=2 body:c=3&d=4 The result is string:a=1&b=2&c=3&d=4
 # Trade Interface
 
 ## Create an Order
