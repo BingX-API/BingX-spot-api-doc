@@ -21,6 +21,9 @@
 
 The base URL of Websocket Market Data is: `wss://open-api-ws.bingx.com/market`
 
+## Data Compression
+
+All response data from Websocket Server are compressed into GZIP format. Clients have to decompress them for further use.
 
 ## Heartbeats
 
