@@ -125,6 +125,7 @@ requestBody: timestamp=1649404670162&type=MARKET
 | symbol         | string  | YES      | Trading pair, e.g., BTC-USDT |
 | side           | string  | YES      | BUY/SELL |
 | type           | string  | YES      | MARKET/LIMIT |
+| timeInForce    | string  | NO       | IOC/POC |
 | quantity       | float64 | NO       | Original quantity, e.g., 0.1BTC  |
 | quoteOrderQty  | float64 | NO       | Quote order quantity, e.g., 100USDT  |
 | price          | float64 | NO       | Price, e.g., 10000USDT  |
@@ -479,12 +480,12 @@ requestBody: timestamp=1649404670162&type=MARKET
 | Parameters           | Type    | Description     |
 | ------               | ------  |  ------ |    
 | symbol               | string  | Trading pair |
-| baseAssetPrecision   | int     | Quantitative precision |
-| quoteAssetPrecision  | int     | Price precision |
+| tickSize             | float64 | Price step |
+| stepSize             | float64 | Quantity step |
 | minQty               | float64 | Minimum transaction quantity |
 | maxQty               | float64 | Maximum transaction quantity |
-| minPrice             | float64 | Minimum transaction amount |
-| maxPrice             | float64 | Maximum transaction amount |__
+| minNotional          | float64 | Minimum transaction amount |
+| maxNotional          | float64 | Maximum transaction amount |
 | status               | int     | 0 offline, 1 online |
 
 ```
@@ -494,13 +495,13 @@ requestBody: timestamp=1649404670162&type=MARKET
     "data":{
         "symbols":[
             {
-                "symbol":"BUSD-USDT",
-                "baseAssetPrecision":0,
-                "quoteAssetPrecision":5,
-                "minQty":11.98635772,
-                "maxQty":19978,
-                "minPrice":12,
-                "maxPrice":20000,
+                "symbol":"BTC-USDT",
+                "tickSize": 0.01,
+                "stepSize": 0.000001,
+                "minQty": 0.00012,
+                "maxQty": 1.24947,
+                "minNotional": 6,
+                "maxNotional": 50000,
                 "status":1
             }
         ]
