@@ -110,8 +110,6 @@ requestBody: timestamp=1649404670162&type=MARKET
 3. 发送请求: curl -H 'X-BX-APIKEY: Zsm4DcrHBTewmVaElrdwA67PmivPv6VDK6JAkiECZ9QfcUnmn67qjCOgvRuZVOzU' -X POST 'https://open-api.bingx.com/openApi/spot/v1/trade/order?quoteOrderQty=20&side=BUY&symbol=ETHUSDT' -d 'timestamp=1649404670162&type=MARKET&signature=94e0b4925060a615e1e372d4c929015d4b59d3c89067dc0beeafcfb33a6d8d10'
 ```
 
-注意：顺序是queryString在前 request body在后。加起来中间用&连接，如queryString:a=1&b=2 body:c=3&d=4 结果为string:a=1&b=2&c=3&d=4
-
 # 交易接口
 
 ## 下单
