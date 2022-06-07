@@ -251,9 +251,10 @@ code错误码说明
       dataType 为 <symbol>@depth<level>，比如BTC-USDT@depth, BTC-USDT@depth20, BTC-USDT@depth100 
    
 **订阅例子**
-
+ ```
   {"id":"975f7385-7f28-4ef1-93af-df01cb9ebb53","dataType":"BTC-USDT@depth"}
-
+ ```
+ 
 **订阅参数**
 
 | 参数名  | 参数类型  | 必填 | 字段描述 | 描述                   |
