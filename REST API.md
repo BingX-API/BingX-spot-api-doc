@@ -510,6 +510,88 @@ requestBody: timestamp=1649404670162&type=MARKET
 }
 ```
 
+## Query transaction records
+
+**interface**
+````
+GET /openApi/spot/v1/trades
+````
+
+**parameter**
+
+| Parameter name | Type | Required or not | Remarks |
+| ------ | ------ | ------ | ------ |
+| symbol | string | yes | symbol, eg: BTC-USDT, please use capital letters |
+| limit | int | no | default 100, max 100 |
+
+**response**
+
+| parameter name | type | remarks |
+| ------ | ------ | ------ |
+| id | long | transaction id |
+| price | float64 | price |
+| qty | float64 | quantity |
+| time | long | time |
+| isBuyerMaker | boolean | Buyer or not |
+
+````
+{
+    "code": 0,
+    "data": [
+        {
+            "id": 43148253,
+            "price": 25714.71,
+            "qty": 1.674571,
+            "time": 1655085975589,
+            "buyerMaker": false
+        }
+    ]
+}
+````
+
+
+
+## Query depth information
+
+**interface**
+````
+GET /openApi/spot/v1/depth
+````
+
+**parameter**
+
+| Parameter name | Type | Required or not | Remarks |
+| ------ | ------ | ------ | ------ |
+| symbol | string | yes | symbol, eg: BTC-USDT, please use capital letters |
+| limit | int | No | Default 20, max 100 |
+
+**response**
+
+| parameter name | type | remarks |
+| ------ | ------ | ------ |
+| bids | array | price of the first element, quantity of the second element |
+| asks | array | first element price, second element quantity |
+
+````
+{
+    "code": 0,
+    "data": {
+        "bids": [
+            [
+                "25770.20",
+                "0.027944"
+            ]
+        ],
+        "asks": [
+            [
+                "25774.59",
+                "0.681418"
+            ]
+        ]
+    }
+}
+````
+
 # Other Interface
 
 ## generate Listen Key
