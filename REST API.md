@@ -514,7 +514,7 @@ requestBody: timestamp=1649404670162&type=MARKET
 
 **interface**
 ````
-GET /openApi/spot/v1/trades
+GET /openApi/spot/v1/market/trades
 ````
 
 **parameter**
@@ -555,7 +555,7 @@ GET /openApi/spot/v1/trades
 
 **interface**
 ````
-GET /openApi/spot/v1/depth
+GET /openApi/spot/v1/market/depth
 ````
 
 **parameter**
