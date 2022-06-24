@@ -187,9 +187,9 @@ Confirmation of Unsubscription:
 
 For now, only 1 min kline data is provided
 
-| klineType Field Description | | 
+| klineType  | Field Description| 
 | ----------|----|
-| 1         | 1 min Kline |
+| 1min         | 1 min Kline |
 
 
 **Push Data**
