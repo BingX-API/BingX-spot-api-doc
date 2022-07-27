@@ -14,6 +14,11 @@
     - [查询资产](#查询资产)
 - [行情接口](#行情接口)
     - [查询交易品种](#查询交易品种)
+- [用户划转和充值和提币接口](#用户划转和充值和提币接口)
+    - [用户万向划转](#用户万向划转)
+    - [查询用户万向划转历史](#查询用户万向划转历史)
+    - [获取充值历史(支持多网络)](#获取充值历史(支持多网络))
+    - [获取提币历史 (支持多网络)](#获取提币历史(支持多网络))
 - [其他接口](#其他接口)
     - [生成ListenKey](#生成-Listen-Key)
     - [延长ListenKey有效期](#延长-Listen-Key-有效期)
@@ -508,8 +513,6 @@ requestBody: timestamp=1649404670162&type=MARKET
 }
 ```
 
-
-
 ## 查询成交记录
 
 **接口**
@@ -593,6 +596,286 @@ GET /openApi/spot/v1/market/depth
 ```
 
 
+# 用户划转和充值和提币接口
+
+
+## 用户万向划转
+
+**接口**
+```
+    POST /openApi/api/v3/asset/transfer
+```
+
+**参数**
+
+| 参数名          | 类型     | 是否必填 | 备注                |
+| ------         | ------  |------|-------------------|    
+| type         | ENUM  | 是    | 划转类型              |
+| asset         | STRING  | 是    | 币的名称 例如USDT       |
+| amount         | DECIMAL  | 是    | 交易金额              |
+| recvWindow         | LONG  | 否    | 执行窗口时间，不能大于 60000 |
+| timestamp         | LONG  | 是    | 当前时间戳  例如1658748648396         |
+
+```
+   
+      目前支持的type划转类型:
+     
+      FUND_SFUTURES，资金账户->标准合约
+     
+      SFUTURES_FUND，标准合约->资金账户
+     
+      FUND_PFUTURES，资金账户->专业合约
+     
+      PFUTURES_FUND，专业合约->资金账户
+     
+      SFUTURES_PFUTURES，标准合约->专业合约
+     
+      PFUTURES_SFUTURES，专业合约->标准合约
+   
+```
+**响应**
+
+| 参数名                | 类型     | 备注   |
+| ------               | ------  |------|    
+| tranId              | LONG  | 交易ID |
+
+
+```
+{
+    "tranId":13526853623
+}
+```
+
+
+
+## 查询用户万向划转历史
+
+**接口**
+```
+    GET /openApi/api/v3/asset/transfer
+```
+
+**参数**
+
+| 参数名          | 类型   | 是否必填 | 备注                   |
+| ------         |------|------|----------------------|    
+| type         | ENUM | 是    | 划转类型                 |
+| startTime         | LONG | 否    | 开始时间 1658748648396   |
+| endTime         | LONG | 否    | 结束时间   1658748648396 |
+| current         | Int | 否    | 当前页 默认1              |
+| size         | Int  | 否    | 页数量大小 默认10 不能超过100   |
+| recvWindow         | LONG | 否    | 执行窗口时间，不能大于 60000    |
+| timestamp         | LONG | 是    | 当前时间戳 1658748648396  |
+
+```
+   
+      目前支持的type划转类型:
+     
+      FUND_SFUTURES，资金账户->标准合约
+     
+      SFUTURES_FUND，标准合约->资金账户
+     
+      FUND_PFUTURES，资金账户->专业合约
+     
+      PFUTURES_FUND，专业合约->资金账户
+     
+      SFUTURES_PFUTURES，标准合约->专业合约
+     
+      PFUTURES_SFUTURES，专业合约->标准合约
+   
+```
+**响应**
+
+| 参数名                | 类型      | 备注        |
+| ------               |---------|-----------|    
+| total              | LONG    | 总数        |
+| rows              | Array   | 数据Array   |
+| asset              | String  | 币的名称      |
+| amount              | DECIMAL | 币的金额      |
+| type              | ENUM    | 划转类型      |
+| status              | String  | CONFIRMED |
+| tranId              | LONG    | 交易id      |
+| timestamp              | LONG    | 划转的时间戳    |
+
+
+
+```
+{
+    "total":3,
+    "rows":[
+        {
+            "asset":"USDT",
+            "amount":"-100.00000000000000000000",
+            "type":"FUND_SFUTURES",
+            "status":"CONFIRMED",
+            "tranId":1067594500957016069,
+            "timestamp":1658388859000
+        },
+        {
+            "asset":"USDT",
+            "amount":"-33.00000000000000000000",
+            "type":"FUND_SFUTURES",
+            "status":"CONFIRMED",
+            "tranId":1069064111112065025,
+            "timestamp":1658739241000
+        },
+        {
+            "asset":"USDT",
+            "amount":"-100.00000000000000000000",
+            "type":"FUND_SFUTURES",
+            "status":"CONFIRMED",
+            "tranId":1069099446076444674,
+            "timestamp":1658747666000
+        }
+    ]
+}
+```
+
+
+
+## 获取充值历史(支持多网络)
+
+**接口**
+```
+    GET /openApi/api/v3/capital/deposit/hisrec
+```
+
+**参数**
+
+| 参数名          | 类型     | 是否必填 | 备注                                                       |
+| ------         |--------|-----|----------------------------------------------------------|    
+| coin         | String | 否   | 币的名称                                                     |
+| status         | Int    |否    | 状态(0:pending,6: credited but cannot withdraw, 1:success) |
+| startTime         | LONG   | 否   | 开始时间   1658748648396                                     |
+| endTime         | LONG   | 否   | 结束时间   1658748648396                                     |
+| offset         | Int    | 否   | 偏移 默认0                                                   |
+| limit         | Int    | 否   | 页数量大小 默认1000 不能超过1000                                    |
+| recvWindow         | LONG   | 否   | 执行窗口时间，不能大于 60000                                        |
+| timestamp         | LONG   | 是   | 当前时间戳 1658748648396                                      |
+
+**响应**
+
+| 参数名                | 类型      | 备注       |
+| ------               |---------|----------|    
+| amount              | DECIMAL | 充值金额     |
+| coin              | String  | 币名称      |
+| network              | String  | 充值网络     |
+| status              | Int     | 状态 状态 0-已确认-10-待确认(审核中) 20-已申请区块 30已审核通过 40审核不通过 50已汇出 60充值初步确认(最终确认变为0) 70审核不通过已退回资产      |
+| address              | String  | 充值地址     |
+| addressTag              | String  | 备注       |
+| txId              | LONG    | 交易id     |
+| insertTime              | LONG    | 交易时间     |
+| transferType              | LONG    | 交易类型0=充值 |
+| unlockConfirm              | LONG    | 解锁需要的网络确认次数   |
+| confirmTimes              | LONG    | 网络确认次数   |
+
+
+```
+[
+    {
+        "amount":"0.00999800",
+        "coin":"PAXG",
+        "network":"ETH",
+        "status":1,
+        "address":"0x788cabe9236ce061e5a892e1a59395a81fc8d62c",
+        "addressTag":"",
+        "txId":"0xaad4654a3234aa6118af9b4b335f5ae81c360b2394721c019b5d1e75328b09f3",
+        "insertTime":1599621997000,
+        "transferType":0,
+        "unlockConfirm":"12/12", // 解锁需要的网络确认次数
+        "confirmTimes":"12/12"
+    },
+    {
+        "amount":"0.50000000",
+        "coin":"IOTA",
+        "network":"IOTA",
+        "status":1,
+        "address":"SIZ9VLMHWATXKV99LH99CIGFJFUMLEHGWVZVNNZXRJJVWBPHYWPPBOSDORZ9EQSHCZAMPVAPGFYQAUUV9DROOXJLNW",
+        "addressTag":"",
+        "txId":"ESBFVQUTPIWQNJSPXFNHNYHSQNTGKRVKPRABQWTAXCDWOAKDKYWPTVG9BGXNVNKTLEJGESAVXIKIZ9999",
+        "insertTime":1599620082000,
+        "transferType":0,
+        "unlockConfirm":"1/12",
+        "confirmTimes":"1/1"
+    }
+]
+```
+
+
+## 获取提币历史(支持多网络)
+
+**接口**
+```
+    GET /openApi/api/v3/capital/withdraw/history
+```
+
+**参数**
+
+| 参数名          | 类型     | 是否必填 | 备注                                                    |
+| ------         |--------|-----|-------------------------------------------------------|    
+| coin         | String | 否   | 币的名称                                                  |
+| withdrawOrderId         | String | 否   | 自定义ID, 如果没有则不返回该字段                                    |
+| status         | Int    |否    | 状态 (0:已发送确认Email, 2:等待确认 3:被拒绝 4:处理中 5:提现交易失败 6 提现完成) |
+| startTime         | LONG   | 否   | 开始时间   1658748648396                                  |
+| endTime         | LONG   | 否   | 结束时间   1658748648396                                  |
+| offset         | Int    | 否   | 偏移 默认0                                                |
+| limit         | Int    | 否   | 页数量大小 默认1000 不能超过1000                                 |
+| recvWindow         | LONG   | 否   | 执行窗口时间，不能大于 60000                                     |
+| timestamp         | LONG   | 是   | 当前时间戳 1658748648396                                   |
+
+**响应**
+
+| 参数名           | 类型      | 备注                 |
+|---------------|---------|--------------------|    
+| address       | String  | 地址                 |
+| amount        | DECIMAL | 提现转出金额             |
+| applyTime       | Date    | 充值时间               |
+| coin        | String  | 币名称                |
+| id       | String  | 该笔提现的id            |
+| withdrawOrderId    | String  | 自定义ID, 如果没有则不返回该字段 |
+| network          | String  | 提现网络               |
+| transferType    | Int     | 交易类型1=提现           |
+| status  | Int     | 状态 状态 0-已确认-10-待确认(审核中) 20-已申请区块 30已审核通过 40审核不通过 50已汇出 60充值初步确认(最终确认变为0) 70审核不通过已退回资产                |
+| transactionFee | String  | 手续费                |
+| confirmNo  | Int     | 提现确认次数             |
+| info  | String  | 提币失败原因             |
+| txId  | String  | 提现交易id             |
+
+
+
+```
+[
+    {
+        "address": "0x94df8b352de7f46f64b01d3666bf6e936e44ce60",
+        "amount": "8.91000000",   // 提现转出金额
+        "applyTime": "2019-10-12 11:12:02",  
+        "coin": "USDT",
+        "id": "b6ae22b3aa844210a7041aee7589627c",  // 该笔提现的id
+        "withdrawOrderId": "WITHDRAWtest123", // 自定义ID, 如果没有则不返回该字段
+        "network": "ETH",
+        "transferType": 0 
+        "status": 6,
+        "transactionFee": "0.004", // 手续费
+        "confirmNo":3,  // 提现确认数
+        "info": "The address is not valid. Please confirm with the recipient",  // 提币失败原因
+        "txId": "0xb5ef8c13b968a406cc62a93a8bd80f9e9a906ef1b3fcf20a2e48573c17659268"   // 提现交易id
+    },
+    {
+        "address": "1FZdVHtiBqMrWdjPyRPULCUceZPJ2WLCsB",
+        "amount": "0.00150000",
+        "applyTime": "2019-09-24 12:43:45",
+        "coin": "BTC",
+        "id": "156ec387f49b41df8724fa744fa82719",
+        "network": "BTC",
+        "transferType": 0, 
+        "status": 6,
+        "transactionFee": "0.004",
+        "confirmNo": 2,
+        "info": "",
+        "txId": "60fd9007ebfddc753455f95fafa808c4302c836e4d1eebc5a132c36c1d8ac354"
+    }
+]
+```
 
 # 其他接口
 
