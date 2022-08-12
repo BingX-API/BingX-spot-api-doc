@@ -879,6 +879,15 @@ GET /openApi/spot/v1/market/depth
 
 # 其他接口
 
+websocket接口是 `wss://open-api-ws.bingx.com/market`
+
+订阅账户数据流的stream名称为 `/market/<listenKey>`
+```
+wss://open-api-ws.bingx.com/market/<listenKey>
+```
+
+listenKey 获取方式如下：
+
 ## 生成 Listen Key
 
 listen key的有效时间为1小时
