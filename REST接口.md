@@ -5,6 +5,9 @@
     - [常见错误码](#常见错误码)
 - [签名认证](#签名认证)
     - [签名说明](#签名说明)
+- [标准合约接口](#标准合约接口)
+    - [持仓](#持仓)
+    - [历史订单](#历史订单)
 - [交易接口](#交易接口)
     - [下单](#下单)
     - [撤单](#撤单)
@@ -114,6 +117,121 @@ requestBody: timestamp=1649404670162&type=MARKET
    echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDTtimestamp=1649404670162&type=MARKET" | openssl dgst -sha256 -hmac "UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI" -hex
 3. 发送请求: curl -H 'X-BX-APIKEY: Zsm4DcrHBTewmVaElrdwA67PmivPv6VDK6JAkiECZ9QfcUnmn67qjCOgvRuZVOzU' -X POST 'https://open-api.bingx.com/openApi/spot/v1/trade/order?quoteOrderQty=20&side=BUY&symbol=ETHUSDT' -d 'timestamp=1649404670162&type=MARKET&signature=94e0b4925060a615e1e372d4c929015d4b59d3c89067dc0beeafcfb33a6d8d10'
 ```
+
+
+# 标准合约接口
+
+## 持仓
+
+**接口**
+```
+    GET /openApi/contract/v1/allPosition
+```
+
+**参数**
+
+无
+
+**响应**
+
+| 参数名                 | 类型       | 备注     |
+| ------                | ------    |  ------ |    
+| symbol                | string    | 交易品种 |
+| initialMargin         | number    | 保证金 |
+| leverage              | number    | 杠杆数 |
+| unrealizedProfit      | number    | 持仓未实现盈亏 |
+| isolated              | bool      | 是否是逐仓模式 |
+| entryPrice            | number    | 持仓成本价 |
+| positionSide          | number    | 持仓方向，LONG 和 SHORT |
+| positionAmt           | number    | 已成交数据|
+| currentPrice          | number    | 当前价.没有平仓价时会返回当前价 |
+| time                  | int64     | 开仓时间 |
+例子：
+
+```
+{
+    "code": 0,
+    "timestamp": 1666346627165,
+    "data": [
+        {
+            "symbol": "BTC/USDT",
+            "initialMargin": 7,
+            "unrealizedProfit": -0.05072452,
+            "leverage": 2,
+            "isolated": true,
+            "entryPrice": 19074.36,
+            "positionSide": "LONG",
+            "positionAmt": 0.00073402,
+            "time": 1666317288000,
+            "currentPrice": 19005.25
+        }
+    ]
+}
+```
+
+## 历史订单
+
+**接口**
+```
+    GET /openApi/contract/v1/allOrders
+```
+
+**参数**
+
+| 参数名                 | 类型       | 备注     |
+| ------                | ------    |  ------ |   
+| symbol                | string    | 币对，格式类似：BTC-USDT，必传 | 
+| orderId                | int64    | 订单ID，选填 | 
+| startTime                | int64    | 开始时间，选填 | 
+| endTime                | int64    | 结束时间，选填 | 
+| limit                | int64    | 数量，选填 | 
+
+**响应**
+
+| 参数名                 | 类型       | 备注     |
+| ------                | ------    |  ------ |    
+| avgPrice      | number    | 平仓价 |
+| cumQuote      | number    | 交易额 |
+| executedQty   | number    | 成交量 |
+| orderId       | number    | 系统订单号 |
+| positionSide  | string      | 持仓方向，LONG 和 SHORT |
+| status        | string    | 订单状态 CLOSED |
+| symbol    | string    | 币对，格式类似：BTC-USDT |
+| time  | int64    | 订单时间|
+| updateTime    | int64    | 更新时间 |
+| margin    | number     | 保证金 |
+| leverage  | number     | 杠杆数 |
+| isolated  | bool     | 是否是逐仓模式 |
+| closePrice    | number     | 平仓价 |
+| positionId    | int64     | 持仓订单号 |
+
+例子：
+
+```
+{
+    "code": 0,
+    "timestamp": 1666346566376,
+    "data": [
+        {
+            "avgPrice": 19205.29,
+            "cumQuote": 24,
+            "executedQty": 0.00124965,
+            "orderId": 1100634504383848400,
+            "positionSide": "LONG",
+            "status": "CLOSED",
+            "symbol": "BTCUSDT",
+            "time": 1666266209000,
+            "updateTime": 1666266256000,
+            "margin": 12,
+            "leverage": 2,
+            "isolated": true,
+            "closePrice": 19198.08,
+            "positionId": 1100634504383848400
+        }
+    ]
+}
+```
+
 
 # 交易接口
 
