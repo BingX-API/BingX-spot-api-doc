@@ -151,19 +151,19 @@ requestBody: timestamp=1649404670162&type=MARKET
 ```
 {
     "code": 0,
-    "timestamp": 1666346627165,
+    "timestamp": 1666421703835,
     "data": [
         {
+            "currentPrice": 19145.65,
             "symbol": "BTC/USDT",
-            "initialMargin": 7,
-            "unrealizedProfit": -0.05072452,
-            "leverage": 2,
+            "initialMargin": 2,
+            "unrealizedProfit": -0.7239062,
+            "leverage": 1,
             "isolated": true,
-            "entryPrice": 19074.36,
+            "entryPrice": 30006.65,
             "positionSide": "LONG",
-            "positionAmt": 0.00073402,
-            "time": 1666317288000,
-            "currentPrice": 19005.25
+            "positionAmt": 0.00006666,
+            "time": 1654782192000
         }
     ]
 }
