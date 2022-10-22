@@ -210,23 +210,23 @@ requestBody: timestamp=1649404670162&type=MARKET
 ```
 {
     "code": 0,
-    "timestamp": 1666346566376,
+    "timestamp": 1666421402448,
     "data": [
         {
-            "avgPrice": 19205.29,
-            "cumQuote": 24,
-            "executedQty": 0.00124965,
-            "orderId": 1100634504383848400,
-            "positionSide": "LONG",
-            "status": "CLOSED",
-            "symbol": "BTCUSDT",
-            "time": 1666266209000,
-            "updateTime": 1666266256000,
-            "margin": 12,
-            "leverage": 2,
+            "margin": 2,
+            "leverage": 1,
+            "closePrice": 19138.3,
+            "positionId": 1047766884761493500,
             "isolated": true,
-            "closePrice": 19198.08,
-            "positionId": 1100634504383848400
+            "avgPrice": 29212.91,
+            "cumQuote": 2,
+            "executedQty": 0.00006846,
+            "orderId": 1047766884761493500,
+            "positionSide": "SHORT",
+            "status": "CLOSED",
+            "symbol": "BTC-USDT",
+            "time": 1653661587000,
+            "updateTime": 1666421388000
         }
     ]
 }
