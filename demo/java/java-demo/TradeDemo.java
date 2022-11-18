@@ -65,12 +65,12 @@ public class TradeDemo {
         return urlStr;
     }
 
-    void post(String requestUrl) {
+    void execute(String requestUrl, String method) {
         try {
             URL url = new URL(requestUrl);
             URLConnection conn = url.openConnection();
-            HttpURLConnection http = (HttpURLConnection)conn;
-            http.setRequestMethod("POST"); // PUT is another valid option
+            HttpURLConnection http = (HttpURLConnection) conn;
+            http.setRequestMethod(method); // PUT is another valid option
             http.addRequestProperty("X-BX-APIKEY", apiKey);
             http.setDoOutput(true);
             conn.setDoOutput(true);
@@ -84,7 +84,7 @@ public class TradeDemo {
                 result += line;
             }
 
-            System.out.println("\t"+result);
+            System.out.println("\t" + result);
 
         } catch (Exception e) {
             System.out.println("expection:" + e);
@@ -96,7 +96,7 @@ public class TradeDemo {
                     String quoteOrderQty, String price) {
         String method = "POST";
         String path = "/openApi/spot/v1/trade/order";
-        String timestamp = ""+new Timestamp(System.currentTimeMillis()).getTime();
+        String timestamp = "" + new Timestamp(System.currentTimeMillis()).getTime();
 
         TreeMap<String, String> parameters = new TreeMap<String, String>();
         parameters.put("symbol", symbol);
@@ -112,13 +112,13 @@ public class TradeDemo {
         String parametersString = valueToDigest + "&signature=" + messageDigest;
         String requestUrl = getRequestUrl(path, parametersString);
 
-        post(requestUrl);
+        execute(requestUrl, method);
     }
 
     void cancelOrder(String symbol, String orderId) {
         String method = "POST";
         String path = "/openApi/spot/v1/trade/cancel";
-        String timestamp = ""+new Timestamp(System.currentTimeMillis()).getTime();
+        String timestamp = "" + new Timestamp(System.currentTimeMillis()).getTime();
 
         TreeMap<String, String> parameters = new TreeMap<String, String>();
         parameters.put("symbol", symbol);
@@ -130,13 +130,13 @@ public class TradeDemo {
         String parametersString = valueToDigest + "&signature=" + messageDigest;
         String requestUrl = getRequestUrl(path, parametersString);
 
-        post(requestUrl);
+        execute(requestUrl, method);
     }
 
     void queryOrder(String symbol, String orderId) {
         String method = "POST";
         String path = "/openApi/spot/v1/trade/query";
-        String timestamp = ""+new Timestamp(System.currentTimeMillis()).getTime();
+        String timestamp = "" + new Timestamp(System.currentTimeMillis()).getTime();
 
         TreeMap<String, String> parameters = new TreeMap<String, String>();
         parameters.put("symbol", symbol);
@@ -148,13 +148,13 @@ public class TradeDemo {
         String parametersString = valueToDigest + "&signature=" + messageDigest;
         String requestUrl = getRequestUrl(path, parametersString);
 
-        post(requestUrl);
+        execute(requestUrl, method);
     }
 
     void queryOpenOrders(String symbol) {
         String method = "POST";
         String path = "/openApi/spot/v1/trade/openOrders";
-        String timestamp = ""+new Timestamp(System.currentTimeMillis()).getTime();
+        String timestamp = "" + new Timestamp(System.currentTimeMillis()).getTime();
 
         TreeMap<String, String> parameters = new TreeMap<String, String>();
         parameters.put("symbol", symbol);
@@ -165,14 +165,14 @@ public class TradeDemo {
         String parametersString = valueToDigest + "&signature=" + messageDigest;
         String requestUrl = getRequestUrl(path, parametersString);
 
-        post(requestUrl);
+        execute(requestUrl, method);
     }
 
     void queryHistoryOrders(String symbol, String orderId, String startTime,
                             String endTime, String limit) {
         String method = "POST";
         String path = "/openApi/spot/v1/trade/historyOrders";
-        String timestamp = ""+new Timestamp(System.currentTimeMillis()).getTime();
+        String timestamp = "" + new Timestamp(System.currentTimeMillis()).getTime();
 
         TreeMap<String, String> parameters = new TreeMap<String, String>();
         parameters.put("symbol", symbol);
@@ -183,11 +183,28 @@ public class TradeDemo {
         String parametersString = valueToDigest + "&signature=" + messageDigest;
         String requestUrl = getRequestUrl(path, parametersString);
 
-        post(requestUrl);
+        execute(requestUrl, method);
+    }
+
+    void querySymbols(String symbol) {
+        String method = "GET";
+        String path = "/openApi/spot/v1/common/symbols";
+        String timestamp = "" + new Timestamp(System.currentTimeMillis()).getTime();
+
+        TreeMap<String, String> parameters = new TreeMap<String, String>();
+        parameters.put("symbol", symbol);
+        parameters.put("timestamp", timestamp);
+
+        String valueToDigest = getMessageToDigest(method, path, parameters);
+        String messageDigest = generateHmac256(valueToDigest);
+        String parametersString = valueToDigest + "&signature=" + messageDigest;
+        String requestUrl = getRequestUrl(path, parametersString);
+        execute(requestUrl,method);
     }
 
     public static void main(String[] args) {
         TradeDemo h = new TradeDemo();
+
 
 //    	System.out.println("placeOrder:");
 //    	h.placeOrder("XRP-USDT", "BUY", "LIMIT", "20", "0", "0.5");
@@ -203,6 +220,9 @@ public class TradeDemo {
 
 //    	System.out.println("queryHistoryOrders:");
 //    	h.queryHistoryOrders("XRP-USDT", "0", "0", "0", "2");
+
+//    	System.out.println("querySymbols:");
+//    	h.querySymbols("BTC-USDT");
 
     }
 }
