@@ -305,6 +305,8 @@ code错误码说明
 
 # Websocket 账户信息推送
 
+注意需要获取此类信息需要 websocket 鉴权，使用 listenKey，详细方式查看 Rest 接口文档
+
 ## 1. 订阅订单更新数据
 
 **订阅类型**

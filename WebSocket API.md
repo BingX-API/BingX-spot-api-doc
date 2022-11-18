@@ -291,6 +291,8 @@ For now, only 1 min kline data is provided
 
 # Websocket Account Data
 
+Note that websocket authentication is required to obtain such information, use listenKey, and see the Rest interface documentation for details.
+
 ## 1. Order Update Streams
 
 **Subscription Type**

@@ -881,6 +881,16 @@ GET /openApi/spot/v1/market/depth
 
 # Other Interface
 
+The base URL of Websocket Market Data is: `wss://open-api-ws.bingx.com/market`
+
+User Data Streams are accessed at `/market/<listenKey>`
+
+```
+wss://open-api-ws.bingx.com/market/<listenKey>
+```
+
+Use following API to fetch and update listenKey:
+
 ## generate Listen Key
 
 listen key Valid for 1 hour
