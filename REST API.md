@@ -634,6 +634,11 @@ GET /openApi/spot/v1/market/depth
       PFUTURES_SFUTURES，Professional Contract -> Standard Contract
    
 ```
+
+```
+curl --location --request GET 'https://open-api.bingx.com/openApi/api/v3/get/asset/transfer?type=FUND_PFUTURES&asset=USDT&amount=100&timestamp=1670215150028&signature=ecc819d72515095039b7b383310f718584af4cf70106b57609bc59473185c9a3'
+
+```
 **response**
 
 | parameter name | type | remarks |
