@@ -721,7 +721,7 @@ GET /openApi/spot/v1/market/depth
 
 **接口**
 ```
-    POST /openApi/api/v3/asset/transfer
+    GET /openApi/api/v3/get/asset/transfer
 ```
 
 **参数**
