@@ -604,7 +604,7 @@ GET /openApi/spot/v1/market/depth
 
 **Interface**
 ```
-    POST /openApi/api/v3/asset/transfer
+    GET /openApi/api/v3/get/asset/transfer
 ```
 
 **parameter**
