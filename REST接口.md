@@ -1006,9 +1006,9 @@ curl --location --request GET 'https://open-api.bingx.com/openApi/api/v3/get/ass
 
 websocket接口是 `wss://open-api-ws.bingx.com/market`
 
-订阅账户数据流的stream名称为 `/market/<listenKey>`
+订阅账户数据流的stream名称为 `/market?listenKey=`
 ```
-wss://open-api-ws.bingx.com/market/<listenKey>
+wss://open-api-ws.bingx.com/market?listenKey=a8ea75681542e66f1a50a1616dd06ed77dab61baa0c296bca03a9b13ee5f2dd7
 ```
 
 listenKey 获取方式如下：
@@ -1065,7 +1065,7 @@ curl -i -X PUT 'https://open-api.bingx.com/openApi/user/auth/userDataStream?list
 
 | 参数名          | 类型     | 是否必填 | 备注         |
 | ------         | ------  | ------  |------------|    
-| listenKey   | string  | 是      | 请求的API KEY |
+| listenKey   | string  | 是      | 返回的listenKey |
 
 
 **响应**
