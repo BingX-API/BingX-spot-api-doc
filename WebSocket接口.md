@@ -309,6 +309,15 @@ code错误码说明
 
 ## 1. 订阅订单更新数据
 
+
+websocket接口是 `wss://open-api-ws.bingx.com/market`
+
+订阅账户数据流的stream名称为 `/market?listenKey=`
+```
+wss://open-api-ws.bingx.com/market?listenKey=a8ea75681542e66f1a50a1616dd06ed77dab61baa0c296bca03a9b13ee5f2dd7
+```
+
+
 **订阅类型**
 ```
 dataType 为 spot.executionReport
@@ -318,6 +327,8 @@ dataType 为 spot.executionReport
 ```
 {"id":"e745cd6d-d0f6-4a70-8d5a-043e4c741b40","dataType":"spot.executionReport"}
 ```
+
+
 
 **推送数据**
 
