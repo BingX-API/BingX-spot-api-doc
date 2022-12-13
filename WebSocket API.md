@@ -299,6 +299,16 @@ Note that websocket authentication is required to obtain such information, use l
 ```
 dataType is spot.executionReport
 ```
+
+The base URL of Websocket Market Data is: `wss://open-api-ws.bingx.com/market`
+
+User Data Streams are accessed at `/market?listenKey=`
+
+```
+wss://open-api-ws.bingx.com/market?listenKey=a8ea75681542e66f1a50a1616dd06ed77dab61baa0c296bca03a9b13ee5f2dd7
+```
+
+Use following API to fetch and update listenKey:
     
 **Subscription Example**
 ```
