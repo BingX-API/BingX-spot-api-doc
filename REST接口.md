@@ -233,6 +233,53 @@ requestBody: timestamp=1649404670162&type=MARKET
 ```
 
 
+## 查询标准合约余额
+
+**接口**
+```
+    GET /openApi/contract/v1/balance
+```
+
+**参数**
+
+无
+
+**响应**
+
+| 参数名                 | 类型     | 备注         |
+| ------                |--------|------------|    
+| asset                | string | 资产         |
+| balance         | string | 总余额        |
+| crossWalletBalance              | string | 全仓余额       |
+| crossUnPnl      | string | 全仓持仓未实现盈亏  |
+| availableBalance              | string | 下单可用余额     |
+| maxWithdrawAmount            | string | 最大可转出余额    |
+| marginAvailable          | bool   | 是否可用作联合保证金 |
+| updateTime           | number | 时间戳        |
+
+例子：
+
+```
+{
+    "code": 0,
+    "timestamp": 1666421703835,
+    "data": [
+        {
+            "asset": "USDT",        // 资产
+            "balance": "122607.35137903",   // 总余额
+            "crossWalletBalance": "23.72469206", // 全仓余额
+            "crossUnPnl": "0.00000000"  // 全仓持仓未实现盈亏
+            "availableBalance": "23.72469206",       // 下单可用余额
+            "maxWithdrawAmount": "23.72469206",     // 最大可转出余额
+            "marginAvailable": true,    // 是否可用作联合保证金
+            "updateTime": 1617939110373
+        }
+    ]
+}
+```
+
+
+
 # 交易接口
 
 ## 下单
