@@ -380,7 +380,7 @@ Use following API to fetch and update listenKey:
 
 **Subscription Type**
 ```
-dataType 为 ACCOUNT_UPDATE
+dataType is ACCOUNT_UPDATE
 ```
 
 **Subscription Example**
