@@ -5,6 +5,10 @@
   * [Common Error Codes](#common-error-codes)
 * [Signature Authentication](#signature-authentication)
   * [Signature Description](#signature-description)
+* [Standard Contract Interface](#Standard-Contract-Interface)
+  * [position](#position)
+  * [Historical order](#Historical-order)
+  * [Query standard contract balance](#Query-standard-contract-balance)
 * [Trade Interface](#trade-interface)
   * [Create an Order](#create-an-order)
   * [Cancel an Order](#cancel-an-order)
@@ -110,6 +114,166 @@ requestBody: timestamp=1649404670162&type=MARKET
 2. Use secretKey to generate a signature from the assembled parameter string: 94e0b4925060a615e1e372d4c929015d4b59d3c89067dc0beeafcfb33a6d8d10
    echo -n "quoteOrderQty=20&side=BUY&symbol=ETHUSDTtimestamp=1649404670162&type=MARKET" | openssl dgst -sha256 -hmac "UuGuyEGt6ZEkpUObCYCmIfh0elYsZVh80jlYwpJuRZEw70t6vomMH7Sjmf94ztSI" -hex
 3. Send request: curl -H 'X-BX-APIKEY: Zsm4DcrHBTewmVaElrdwA67PmivPv6VDK6JAkiECZ9QfcUnmn67qjCOgvRuZVOzU' -X POST 'https://open-api.bingx.com/openApi/spot/v1/trade/order?quoteOrderQty=20&side=BUY&symbol=ETHUSDT' -d 'timestamp=1649404670162&type=MARKET&signature=94e0b4925060a615e1e372d4c929015d4b59d3c89067dc0beeafcfb33a6d8d10'
+```
+
+
+# Standard Contract Interface
+
+## position
+
+**interface**
+```
+    GET /openApi/contract/v1/allPosition
+```
+
+**parameter**
+
+none
+
+**response**
+
+| parameter name                 | type   | Remark     |
+| ------                |--------|  ------ |    
+| symbol                | string | trading variety |
+| initialMargin         | number | Margin |
+| leverage              | number | Leverage |
+| unrealizedProfit      | number | Position unrealized profit and loss |
+| isolated              | bool   | Whether it is isolated margin mode |
+| entryPrice            | number | Holding cost price |
+| positionSide          | number | Position direction, LONG and SHORT |
+| positionAmt           | number | Transaction data|
+| currentPrice          | number | Current price. When there is no closing price, the current price will be returned |
+| time                  | int64  | opening time |
+example：
+
+```
+{
+    "code": 0,
+    "timestamp": 1666421703835,
+    "data": [
+        {
+            "currentPrice": 19145.65,
+            "symbol": "BTC/USDT",
+            "initialMargin": 2,
+            "unrealizedProfit": -0.7239062,
+            "leverage": 1,
+            "isolated": true,
+            "entryPrice": 30006.65,
+            "positionSide": "LONG",
+            "positionAmt": 0.00006666,
+            "time": 1654782192000
+        }
+    ]
+}
+```
+
+## Historical order
+
+**interface**
+```
+    GET /openApi/contract/v1/allOrders
+```
+
+**parameter**
+
+| parameter name                 | type       | Remark     |
+| ------                | ------    |  ------ |   
+| symbol                | string    | Currency pair, the format is similar: BTC-USDT, must pass | 
+| orderId                | int64    | Order ID, optional | 
+| startTime                | int64    | start time, optional | 
+| endTime                | int64    | end time, optional| 
+| limit                | int64    | quantity, optional | 
+
+**response**
+
+| parameter name                 | type       | Remark     |
+| ------                | ------    |  ------ |    
+| avgPrice      | number    | Closing price |
+| cumQuote      | number    | transaction amount |
+| executedQty   | number    | turnover |
+| orderId       | number    | System order number |
+| positionSide  | string      | Position direction, LONG and SHORT |
+| status        | string    | Order Status CLOSED |
+| symbol    | string    | Currency pair, the format is similar to：BTC-USDT |
+| time  | int64    | order time|
+| updateTime    | int64    | update time |
+| margin    | number     | Margin |
+| leverage  | number     | Leverage |
+| isolated  | bool     | Whether it is isolated margin mode |
+| closePrice    | number     | Closing price |
+| positionId    | int64     | Position order number |
+
+example：
+
+```
+{
+    "code": 0,
+    "timestamp": 1666421402448,
+    "data": [
+        {
+            "margin": 2,
+            "leverage": 1,
+            "closePrice": 19138.3,
+            "positionId": 1047766884761493500,
+            "isolated": true,
+            "avgPrice": 29212.91,
+            "cumQuote": 2,
+            "executedQty": 0.00006846,
+            "orderId": 1047766884761493500,
+            "positionSide": "SHORT",
+            "status": "CLOSED",
+            "symbol": "BTC-USDT",
+            "time": 1653661587000,
+            "updateTime": 1666421388000
+        }
+    ]
+}
+```
+
+
+## Query standard contract balance
+
+**interface**
+```
+    GET /openApi/contract/v1/balance
+```
+
+**parameter**
+
+none
+
+**response**
+
+| parameter name                 | type     | Remark         |
+| ------                |--------|------------|    
+| asset                | string | assets         |
+| balance         | string | total balance        |
+| crossWalletBalance              | string | Cross position balance       |
+| crossUnPnl      | string | Unrealized profit and loss of cross positions  |
+| availableBalance              | string | Order available balance     |
+| maxWithdrawAmount            | string | Maximum transferable balance    |
+| marginAvailable          | bool   | Can it be used as a joint bond |
+| updateTime           | number | timestamp        |
+
+example：
+
+```
+{
+    "code": 0,
+    "timestamp": 1666421703835,
+    "data": [
+        {
+            "asset": "USDT",        // assets
+            "balance": "122607.35137903",   // total balance
+            "crossWalletBalance": "23.72469206", // Cross position balance
+            "crossUnPnl": "0.00000000"  // Unrealized profit and loss of cross positions
+            "availableBalance": "23.72469206",       // Order available balance 
+            "maxWithdrawAmount": "23.72469206",     // Maximum transferable balance
+            "marginAvailable": true,    // Can it be used as a joint bond
+            "updateTime": 1617939110373
+        }
+    ]
+}
 ```
 
 
