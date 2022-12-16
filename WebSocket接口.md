@@ -12,7 +12,7 @@
     - [订阅合约k线数据](#3-订阅合约k线数据)
 - [Websocket 账户信息推送](#Websocket-账户信息推送)
     - [订阅订单更新数据](#1-订阅订单更新数据)
-    
+
 <!-- /TOC -->
 
 # Websocket 介绍
@@ -116,9 +116,9 @@ code错误码说明
 ```
 
 # symbol说明
-   
-   symbol必须全大写
- 
+
+symbol必须全大写
+
 # Websocket 行情推送
 
 ## 1. 订阅逐笔交易
@@ -258,12 +258,12 @@ code错误码说明
 **订阅类型**
 
       dataType 为 <symbol>@depth<level>，比如BTC-USDT@depth, BTC-USDT@depth20, BTC-USDT@depth100 
-   
+
 **订阅例子**
  ```
   {"id":"975f7385-7f28-4ef1-93af-df01cb9ebb53","dataType":"BTC-USDT@depth"}
  ```
- 
+
 **订阅参数**
 
 | 参数名  | 参数类型  | 必填 | 字段描述 | 描述                   |
@@ -307,9 +307,6 @@ code错误码说明
 
 注意需要获取此类信息需要 websocket 鉴权，使用 listenKey，详细方式查看 Rest 接口文档
 
-## 1. 订阅订单更新数据
-
-
 websocket接口是 `wss://open-api-ws.bingx.com/market`
 
 订阅账户数据流的stream名称为 `/market?listenKey=`
@@ -317,12 +314,14 @@ websocket接口是 `wss://open-api-ws.bingx.com/market`
 wss://open-api-ws.bingx.com/market?listenKey=a8ea75681542e66f1a50a1616dd06ed77dab61baa0c296bca03a9b13ee5f2dd7
 ```
 
+## 1. 订阅订单更新数据
+
 
 **订阅类型**
 ```
 dataType 为 spot.executionReport
 ```
-    
+
 **订阅例子**
 ```
 {"id":"e745cd6d-d0f6-4a70-8d5a-043e4c741b40","dataType":"spot.executionReport"}
@@ -387,6 +386,68 @@ dataType 为 spot.executionReport
 }
 ``` 
 
+
+## 2. 订阅账户余额推送
+
+**订阅类型**
+```
+dataType 为 ACCOUNT_UPDATE
+```
+
+**订阅例子**
+```
+{"id":"gdfg2311-d0f6-4a70-8d5a-043e4c741b40","dataType":"ACCOUNT_UPDATE"}
+```
+
+```
+字段"m"代表了事件推出的原因，包含了以下可能类型:
+
+DEPOSIT
+WITHDRAW
+ORDER
+FUNDING_FEE
+WITHDRAW_REJECT
+ADJUSTMENT
+INSURANCE_CLEAR
+ADMIN_DEPOSIT
+ADMIN_WITHDRAW
+MARGIN_TRANSFER
+MARGIN_TYPE_CHANGE
+ASSET_TRANSFER
+OPTIONS_PREMIUM_FEE
+OPTIONS_SETTLE_PROFIT
+AUTO_EXCHANGE
+```
+
+**推送数据**
+
+| 返回字段 | 字段说明                      |  
+|----|---------------------------   |
+| e  | 事件类型             |
+| E  | 事件时间             |
+| T  | 撮合时间               |
+| m  | 事件推出原因              |
+| a  | 资产名称             |
+| wb   | 钱包余额          |
+| cw   | 除去逐仓仓位保证金的钱包余额          |
+| bc  | 除去盈亏与交易手续费以外的钱包余额改变量             |
+
+```
+{
+	"e": "ACCOUNT_UPDATE", // 事件类型
+	"E": 1671159080000,  // 事件时间
+	"T": 1671159080818,// 撮合时间
+	"a": {
+		"B": [{
+			"a": "USDT", // 资产名称
+			"bc": "-123.0", // 除去盈亏与交易手续费以外的钱包余额改变量
+			"cw": "38877420.08041096", // 除去逐仓仓位保证金的钱包余额
+			"wb": "38877420.08041096" // 钱包余额
+		}],
+		"m": "ASSET_TRANSFER" // 事件推出原因 
+	}
+}
+``` 
 **备注**
 
     更多返回错误代码请看首页的错误代码描述
