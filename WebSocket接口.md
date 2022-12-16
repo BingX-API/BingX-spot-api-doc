@@ -12,6 +12,7 @@
     - [订阅合约k线数据](#3-订阅合约k线数据)
 - [Websocket 账户信息推送](#Websocket-账户信息推送)
     - [订阅订单更新数据](#1-订阅订单更新数据)
+    - [订阅账户余额推送](#2-订阅账户余额推送)
 
 <!-- /TOC -->
 
@@ -305,7 +306,7 @@ symbol必须全大写
 
 # Websocket 账户信息推送
 
-注意需要获取此类信息需要 websocket 鉴权，使用 listenKey，详细方式查看 Rest 接口文档
+注意需要获取此类信息需要 websocket 鉴权，使用 listenKey，详细方式查看 [Rest 接口文档](https://github.com/BingX-API/BingX-spot-api-doc/blob/master/REST%E6%8E%A5%E5%8F%A3.md#%E5%85%B6%E4%BB%96%E6%8E%A5%E5%8F%A3)
 
 websocket接口是 `wss://open-api-ws.bingx.com/market`
 
