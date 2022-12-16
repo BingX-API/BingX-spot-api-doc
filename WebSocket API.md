@@ -12,6 +12,7 @@
     - [Partial Book Depth Streams](#3-partial-book-depth-streams)
 - [Websocket Account Data](#Websocket-account-data)
     - [Order Update Streams](#1-order-update-streams)
+    - [Subscribe to account balance push](#2-Subscribe-to-account-balance-push)
 
 <!-- /TOC -->
 
@@ -105,7 +106,7 @@ Confirmation of Unsubscription:
 
 # symbol Description
 
-   The symbol must all be capitalized
+The symbol must all be capitalized
 
 # Websocket Market Data
 
@@ -246,7 +247,7 @@ For now, only 1 min kline data is provided
 **Subscription Type**
 
        dataType is <symbol>@depth<level>，as BTC-USDT@depth, BTC-USDT@depth20, BTC-USDT@depth100 
-       
+
 ```
  {"id":"975f7385-7f28-4ef1-93af-df01cb9ebb53","dataType":"BTC-USDT@depth"}
 ```
@@ -291,14 +292,8 @@ For now, only 1 min kline data is provided
 
 # Websocket Account Data
 
-Note that websocket authentication is required to obtain such information, use listenKey, and see the Rest interface documentation for details.
+Note that websocket authentication is required to obtain such information, use listenKey, and see the [Rest interface documentation for details](https://github.com/BingX-API/BingX-spot-api-doc/blob/master/REST%20API.md#generate-listen-key).
 
-## 1. Order Update Streams
-
-**Subscription Type**
-```
-dataType is spot.executionReport
-```
 
 The base URL of Websocket Market Data is: `wss://open-api-ws.bingx.com/market`
 
@@ -308,8 +303,16 @@ User Data Streams are accessed at `/market?listenKey=`
 wss://open-api-ws.bingx.com/market?listenKey=a8ea75681542e66f1a50a1616dd06ed77dab61baa0c296bca03a9b13ee5f2dd7
 ```
 
+## 1. Order Update Streams
+
+**Subscription Type**
+```
+dataType is spot.executionReport
+```
+
+
 Use following API to fetch and update listenKey:
-    
+
 **Subscription Example**
 ```
 {"id":"e745cd6d-d0f6-4a70-8d5a-043e4c741b40","dataType":"spot.executionReport"}
@@ -369,6 +372,69 @@ Use following API to fetch and update listenKey:
       "Q": "0.00000000"  
     },
     "dataType": "spot.executionReport"
+}
+``` 
+
+
+## 2. Subscribe to account balance push
+
+**Subscription Type**
+```
+dataType 为 ACCOUNT_UPDATE
+```
+
+**Subscription Example**
+```
+{"id":"gdfg2311-d0f6-4a70-8d5a-043e4c741b40","dataType":"ACCOUNT_UPDATE"}
+```
+
+```
+The field "m" represents the reason for the launch of the event, including the following possible types:
+
+DEPOSIT
+WITHDRAW
+ORDER
+FUNDING_FEE
+WITHDRAW_REJECT
+ADJUSTMENT
+INSURANCE_CLEAR
+ADMIN_DEPOSIT
+ADMIN_WITHDRAW
+MARGIN_TRANSFER
+MARGIN_TYPE_CHANGE
+ASSET_TRANSFER
+OPTIONS_PREMIUM_FEE
+OPTIONS_SETTLE_PROFIT
+AUTO_EXCHANGE
+```
+
+**Push Data**
+
+| return field | field description                      |  
+|----|---------------------------   |
+| e  | Event Type             |
+| E  | Event Time             |
+| T  | Transaction               |
+| m  | Event reason type              |
+| a  | Asset             |
+| wb   | Wallet Balance          |
+| cw   | Cross Wallet Balance          |
+| bc  | Balance Change except PnL and Commission             |
+
+```
+{
+	"e": "ACCOUNT_UPDATE", // Event Type
+	"E": 1671159080000,  // Event Time
+	"T": 1671159080818,// Transaction
+	"a": {
+		"B": [{
+			"a": "USDT", // Asset
+			"bc": "-123.0", // Balance Change except PnL and Commission
+			"cw": "38877420.08041096", // Cross Wallet Balance
+			"wb": "38877420.08041096" // Wallet Balance
+		}],
+		"m": "ASSET_TRANSFER" // Event reason type 
+	}
 }
 ``` 
 
