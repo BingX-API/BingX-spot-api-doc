@@ -692,6 +692,18 @@ curl --location --request GET 'https://open-api.bingx.com/openApi/api/v3/get/ass
       SFUTURES_PFUTURES，标准合约->专业合约
      
       PFUTURES_SFUTURES，专业合约->标准合约
+      
+    1、网格相关：
+     FUND_STRADING，资金账户 -> 网格
+     STRADING_FUND，网格 -> 资金账户
+  
+     2、跟单相关：
+     FUND_CTRADING，资金账户 -> 跟单
+     SFUTURES_CTRADING，标准合约账户 -> 跟单
+     PFUTURES_CTRADING，永续合约账户 -> 跟单
+     CTRADING_FUND，跟单 -> 资金账户
+     CTRADING_SFUTURES，跟单 -> 标准合约账户
+     CTRADING_PFUTURES，跟单 -> 永续合约账户
    
 ```
 **响应**
