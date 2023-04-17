@@ -689,16 +689,20 @@ curl --location --request GET 'https://open-api.bingx.com/openApi/api/v3/get/ass
      
       PFUTURES_SFUTURES，Professional Contract -> Standard Contract
       
-      1、grid account：
       FUND_STRADING，Funding Account -> Grid Account
+      
       STRADING_FUND，Grid Account -> Funding Account
   
-      2、copy trade account：
       FUND_CTRADING，Funding Account -> Copy Trade Account
+      
       SFUTURES_CTRADING，Standard Contract -> Copy Trade Account
+      
       PFUTURES_CTRADING，Professional Contract -> Copy Trade Account
+      
       CTRADING_FUND，Copy Trade Account -> Funding Account
+      
       CTRADING_SFUTURES，Copy Trade Account -> Standard Contract
+      
       CTRADING_PFUTURES，Copy Trade Account -> Professional Contract
 ```
 **response**
