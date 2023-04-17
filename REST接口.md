@@ -693,7 +693,7 @@ curl --location --request GET 'https://open-api.bingx.com/openApi/api/v3/get/ass
      
       PFUTURES_SFUTURES，专业合约->标准合约
       
-    1、网格相关：
+     1、网格相关：
      FUND_STRADING，资金账户 -> 网格
      STRADING_FUND，网格 -> 资金账户
   
