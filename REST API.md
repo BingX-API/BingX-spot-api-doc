@@ -681,13 +681,13 @@ curl --location --request GET 'https://open-api.bingx.com/openApi/api/v3/get/ass
      
       SFUTURES_FUND，Standard Contract -> Funding Account
      
-      FUND_PFUTURES，Funding Account -> Professional Contract
+      FUND_PFUTURES，Funding Account -> Perpetual Futures
      
       PFUTURES_FUND，Professional Contract -> Funding Account
      
-      SFUTURES_PFUTURES，Standard Contract -> Professional Contract
+      SFUTURES_PFUTURES，Standard Contract -> Perpetual Futures
      
-      PFUTURES_SFUTURES，Professional Contract -> Standard Contract
+      PFUTURES_SFUTURES，Perpetual Futures -> Standard Contract
       
       FUND_STRADING，Funding Account -> Grid Account
       
@@ -697,13 +697,13 @@ curl --location --request GET 'https://open-api.bingx.com/openApi/api/v3/get/ass
       
       SFUTURES_CTRADING，Standard Contract -> Copy Trade Account
       
-      PFUTURES_CTRADING，Professional Contract -> Copy Trade Account
+      PFUTURES_CTRADING，Perpetual Futures -> Copy Trade Account
       
       CTRADING_FUND，Copy Trade Account -> Funding Account
       
       CTRADING_SFUTURES，Copy Trade Account -> Standard Contract
       
-      CTRADING_PFUTURES，Copy Trade Account -> Professional Contract
+      CTRADING_PFUTURES，Copy Trade Account -> Perpetual Futures
 ```
 **response**
 
