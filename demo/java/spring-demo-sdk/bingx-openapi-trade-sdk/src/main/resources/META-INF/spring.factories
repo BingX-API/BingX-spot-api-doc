@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.coinsea.openapi.trade.demo.openapi.trade.sdk.AutoConfigure
